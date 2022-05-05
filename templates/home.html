@@ -8,8 +8,16 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{%for message in messages %}
+<b>{{message}}</b>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
 <head>
-    <nav class="navbar navbar-expand-md sticky-top py-0 navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md sticky-top py-1 navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Augustine Li</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -39,6 +47,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href='/logout' class="nav-link active"><button class="btn btn-outline-danger"
+                                type="submit">Logout</button></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href='/login' class="nav-link active"><button class="btn btn-outline-success"
+                                type="submit">Login/Signup with Google</button></a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search articles" aria-label="Search">
@@ -50,12 +69,35 @@
 </head>
 
 <body>
-    <div class="clearfix">
-        <img src="..." class="col-md-4 float-md-start mb-3 ms-md-auto" alt="...">
-        <p>
-            A paragraph of placeholder text. We're using it here to show the use of the clearfix class. We're adding
-            quite a few meaningless phrases here to demonstrate how the columns interact here with the floated image.
-        </p>
+    <h2 class="text-center">My experience</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-3 mx-auto">
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/cybersecurity.jpg" class="card-img-top" width="400" height="250">
+                <div class="card-body">
+                    <h5 class="card-title">Cybersecurity</h5>
+                    <p class="card-text">Cybersecurity certificate - Georgia State University</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/python.png" class="card-img-top" width="400" height="250">
+                <div class="card-body">
+                    <h5 class="card-title">Python</h5>
+                    <p class="card-text">General python programming.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/flask.png" class="card-img-top" width="400" height="250">
+                <div class="card-body">
+                    <h5 class="card-title">Flask</h5>
+                    <p class="card-text">This page is made using flask.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
