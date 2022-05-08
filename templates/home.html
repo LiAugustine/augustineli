@@ -17,7 +17,7 @@
 {% endwith %}
 
 <head>
-    <nav class="navbar navbar-expand-md sticky-top py-1 navbar-light bg-light">
+    <nav class="navbar navbar-expand-md sticky-top navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Augustine Li</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -36,7 +36,7 @@
                             Articles
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Computers</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('bp.index') }}">Computers</a></li>
                             <li><a class="dropdown-item" href="#">Cybersecurity</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -47,22 +47,31 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
-                    {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a href='/logout' class="nav-link active"><button class="btn btn-outline-danger"
-                                type="submit">Logout</button></a>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search articles"
+                                aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
                     </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a href='/login' class="nav-link active"><button class="btn btn-outline-success"
-                                type="submit">Login/Signup with Google</button></a>
-                    </li>
-                    {% endif %}
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search articles" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
+                {% if current_user.is_authenticated %}
+                <span class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{current_user.username}}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Account Info</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </span>
+                {% else %}
+                <span class="nav-item">
+                    <a href='/login' class="nav-link"><button class="btn btn-outline-success" type="submit">Login/Signup
+                            with Google</button></a>
+                </span>
+                {% endif %}
             </div>
         </div>
     </nav>

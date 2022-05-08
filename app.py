@@ -20,9 +20,8 @@ from flask_login import (
     logout_user,
 )
 
-app = flask.Flask(__name__)
-
 load_dotenv(find_dotenv())
+app = flask.Flask(__name__)
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # set environment to HTTPS
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
@@ -30,6 +29,23 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
 )  # get database_url from env
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "secret"
+
+bp = flask.Blueprint(
+    "bp",
+    __name__,
+    template_folder="./static/react",
+)
+
+
+@app.route("/")
+def main():
+    return flask.render_template("home.html")
+
+
+@bp.route("/addarticle")
+def index():
+    return flask.render_template("index.html")
+
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
@@ -41,11 +57,6 @@ login_manager.login_view = "login"
 
 with app.app_context():
     db.create_all()
-
-
-@app.route("/")
-def main():
-    return flask.render_template("home.html")
 
 
 @login_manager.unauthorized_handler
@@ -148,5 +159,7 @@ def logout():
     flask.flash("Logged out!")
     return flask.redirect("/")
 
+
+app.register_blueprint(bp)
 
 app.run()
