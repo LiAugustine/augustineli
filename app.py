@@ -1,3 +1,4 @@
+from multiprocessing import AuthenticationError
 import os
 import pathlib
 import json
@@ -9,7 +10,7 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 
-from database import db, User
+from database import db, User, Article
 from dotenv import find_dotenv, load_dotenv
 
 from flask_login import (
@@ -35,16 +36,6 @@ bp = flask.Blueprint(
     __name__,
     template_folder="./static/react",
 )
-
-
-@app.route("/")
-def main():
-    return flask.render_template("home.html")
-
-
-@bp.route("/addarticle")
-def index():
-    return flask.render_template("index.html")
 
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
@@ -142,9 +133,9 @@ def callback():
     session["google_id"] = google_id
     exists = User.query.filter_by(google_id=google_id).first()
     if not exists:
-        db.session.add(User(google_id=google_id, username=name))
+        db.session.add(User(google_id=google_id, name=name))
         db.session.commit()
-    user = User.query.filter_by(username=name).first()
+    user = User.query.filter_by(name=name).first()
     login_user(user)
     return flask.redirect("/")
 
@@ -158,6 +149,67 @@ def logout():
     logout_user()
     flask.flash("Logged out!")
     return flask.redirect("/")
+
+
+@app.route("/")
+def main():
+    return flask.render_template("home.html")
+
+
+@bp.route("/article_manager")
+@login_required
+def article_manager():
+    return flask.render_template("index.html")
+
+
+@app.route("/get_author")
+def get_author():
+    return flask.jsonify(current_user.name)
+
+
+@app.route("/get_articles")
+def get_articles():
+    my_articles = Article.query.filter_by(author_id=session["google_id"]).all()
+    return flask.jsonify(
+        [
+            {
+                "title": article.title,
+                "subtitle": article.subtitle,
+                "author_id": article.author_id,
+                "author": article.author,
+                "date": article.date,
+                "article": article.article,
+            }
+            for article in my_articles
+        ]
+    )
+
+
+@app.route("/add_article", methods=["POST"])
+def add_title():
+    article = flask.request.json
+    print(article)
+    new_article = Article(
+        title=article.get("title"),
+        subtitle=article.get("subtitle"),
+        author=article.get("author"),
+        author_id=session["google_id"],
+        date=article.get("date"),
+        article=article.get("newArticle"),
+    )
+    db.session.add(new_article)
+    db.session.commit()
+    return flask.jsonify(article.get("title"))
+
+
+@app.route("/computer_articles")
+def computer_articles():
+    articles = Article.query.filter_by(author_id=session["google_id"]).all()
+    for article in articles:
+        articleContents = article.article
+    return flask.render_template(
+        "computers.html", articles=articles, articleContents=articleContents
+    )
 
 
 app.register_blueprint(bp)

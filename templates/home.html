@@ -36,7 +36,7 @@
                             Articles
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('bp.index') }}">Computers</a></li>
+                            <li><a class="dropdown-item" href="/computer_articles">Computers</a></li>
                             <li><a class="dropdown-item" href="#">Cybersecurity</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -48,18 +48,17 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search articles"
-                                aria-label="Search">
-                            <button class="btn btn-outline-primary" type="submit">Search</button>
-                        </form>
+                        <a href="{{ url_for('bp.article_manager') }}"><button class="btn btn-outline-success"
+                                type="submit">+Add
+                                an article!</button>
+                        </a>
                     </li>
                 </ul>
                 {% if current_user.is_authenticated %}
                 <span class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        {{current_user.username}}
+                        {{current_user.name}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Account Info</a></li>
