@@ -47,12 +47,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
+                    {% if current_user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{{ url_for('bp.article_manager') }}"><button class="btn btn-outline-success"
                                 type="submit">+Add
                                 an article!</button>
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
                 {% if current_user.is_authenticated %}
                 <span class="nav-item dropdown">

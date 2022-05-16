@@ -20,4 +20,4 @@ class Article(db.Model, UserMixin):
     author = db.Column(db.String(100), unique=False, nullable=False)
     author_id = db.Column(db.Float, ForeignKey("Users.google_id"))
     date = db.Column(db.String(100), unique=False, nullable=False)
-    article = db.Column(db.String(1000000), unique=False, nullable=False)
+    article = db.Column(db.Text, unique=False, nullable=False)

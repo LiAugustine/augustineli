@@ -204,12 +204,12 @@ def add_title():
 
 @app.route("/computer_articles")
 def computer_articles():
-    articles = Article.query.filter_by(author_id=session["google_id"]).all()
-    for article in articles:
-        articleContents = article.article
-    return flask.render_template(
-        "computers.html", articles=articles, articleContents=articleContents
+    articles = (
+        Article.query.filter_by(author_id=session["google_id"])
+        .order_by(Article.id.desc())
+        .all()
     )
+    return flask.render_template("computers.html", articles=articles)
 
 
 app.register_blueprint(bp)

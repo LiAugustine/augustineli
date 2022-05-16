@@ -26,8 +26,6 @@ const App = () => {
 
   const [myArticles, setMyArticles] = useState("");
 
-  console.log(newArticle);
-
   const current = new Date();
   const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
 
@@ -91,6 +89,7 @@ const App = () => {
       </form>
       <h4>{author}, {date}</h4>
       <ReactQuill modules={modules} ReactQuill theme="snow" onChange={setNewArticle} placeholder="Start typing..." />
+      <p>{newArticle}</p>
       <br></br>
       <button onClick={onClickAdd}>Publish Article</button>
       <br></br>
