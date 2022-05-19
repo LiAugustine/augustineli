@@ -40,6 +40,7 @@ bp = flask.Blueprint(
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+AUTHOR_ID = os.getenv("AUTHOR_ID")
 
 db.init_app(app)
 login_manager = LoginManager()
@@ -169,13 +170,14 @@ def get_author():
 
 @app.route("/get_articles")
 def get_articles():
-    my_articles = Article.query.filter_by(author_id=session["google_id"]).all()
+    my_articles = Article.query.filter_by(author_id=AUTHOR_ID).all()
     return flask.jsonify(
         [
             {
+                "topic": article.topic,
+                "image": article.image,
                 "title": article.title,
                 "subtitle": article.subtitle,
-                "author_id": article.author_id,
                 "author": article.author,
                 "date": article.date,
                 "article": article.article,
@@ -190,10 +192,12 @@ def add_title():
     article = flask.request.json
     print(article)
     new_article = Article(
+        topic=article.get("topic"),
+        image=article.get("image"),
         title=article.get("title"),
         subtitle=article.get("subtitle"),
         author=article.get("author"),
-        author_id=session["google_id"],
+        author_id=AUTHOR_ID,
         date=article.get("date"),
         article=article.get("newArticle"),
     )
@@ -205,11 +209,16 @@ def add_title():
 @app.route("/computer_articles")
 def computer_articles():
     articles = (
-        Article.query.filter_by(author_id=session["google_id"])
-        .order_by(Article.id.desc())
-        .all()
+        Article.query.filter_by(author_id=AUTHOR_ID).order_by(Article.id.desc()).all()
     )
     return flask.render_template("computers.html", articles=articles)
+
+
+@app.route("/view_article", methods=["GET"])
+def view_article():
+    article_id = flask.request.args.get("id")
+    article = Article.query.get(article_id)
+    return flask.render_template("article.html", article=article)
 
 
 app.register_blueprint(bp)

@@ -19,12 +19,14 @@ const modules = {
 
 
 const App = () => {
+  const [topic, setTopic] = useState("");
+  const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [author, setAuthor] = useState("");
   const [newArticle, setNewArticle] = useState("");
 
-  const [myArticles, setMyArticles] = useState("");
+  const [myArticles, setMyArticles] = useState([]);
 
   const current = new Date();
   const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
@@ -41,6 +43,9 @@ const App = () => {
       });
   }, []);
 
+  console.log(myArticles);
+  console.log(topic)
+
   useEffect(() => {
     fetch('/get_author', {
       method: "GET",
@@ -53,27 +58,42 @@ const App = () => {
       });
   }, []);
 
-
-
   function onClickAdd() {
     fetch('/add_article', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ title, subtitle, author, date, newArticle }),
+      body: JSON.stringify({ topic, image, title, subtitle, author, date, newArticle }),
     })
       .then((response) => response.json())
       .then((data) => {
         alert('You published the article ' + data);
       });
-
-
   }
 
   return (
     <div className="App">
       <h2>Add an Article</h2>
+
+
+      <label>
+        <h4>Article Topic:</h4>
+        <select value={topic} onChange={e => setTopic(e.target.value)}>
+          <option value="Computer Hardware">Computer Hardware</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="Politics">Politics</option>
+        </select>
+      </label>
+
+      <form>
+        <label>
+          <h4>Add optional image URL:</h4>
+          <input type="text" name="name" onChange={e => setImage(e.target.value)} />
+        </label>
+      </form>
+
+
       <form>
         <label>
           <h4>Article Title:</h4>
@@ -89,12 +109,12 @@ const App = () => {
       </form>
       <h4>{author}, {date}</h4>
       <ReactQuill modules={modules} ReactQuill theme="snow" onChange={setNewArticle} placeholder="Start typing..." />
-      <p>{newArticle}</p>
       <br></br>
       <button onClick={onClickAdd}>Publish Article</button>
       <br></br>
       <h2>Your articles</h2>
-    </div >
+      {myArticles.map((article) => <p>{article.title}</p>)}
+    </div>
   )
 }
 

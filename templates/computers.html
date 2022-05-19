@@ -13,12 +13,19 @@
 
 <body>
     {% for article in articles %}
-    <div class="card mx-auto" style="width: 40rem;">
-        <a href="#" class="stretched-link"></a>
-        <div class="card-body">
-            <h3 class="card-title">{{article.title}}</h3>
-            <h6 class="card-subtitle mb-2 text-muted">{{article.subtitle}}</h6>
-            <p class="card-text">{{article.author}} {{article.date}}</p>
+    <div class="card mb-3 mx-auto" style="max-width: 500px;">
+        <a href="{{url_for('view_article', id=article.id)}}" class="stretched-link"></a>
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{article.image}}" class="img-fluid rounded-start" alt="">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">{{article.title}}</h3>
+                    <h6 class="card-subtitle mb-2 text-muted">{{article.subtitle}}</h6>
+                    <p class="card-text">{{article.author}} {{article.date}}</p>
+                </div>
+            </div>
         </div>
     </div>
     <br>
