@@ -17,7 +17,15 @@
 {% endwith %}
 
 <head>
-    <nav class="navbar navbar-expand-md sticky-top navbar-light bg-light">
+
+</head>
+
+<body>
+    <div class="bg-image" style="
+    background-image: url(/static/galaxy.jpg);
+    background-size: cover;
+  ">
+      <nav class="navbar navbar-expand-md sticky-top navbar-dark shadow-5-strong">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Augustine Li</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -33,7 +41,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Articles
+                            Blog
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/computer_articles">Computers</a></li>
@@ -69,20 +77,29 @@
                 </span>
                 {% else %}
                 <span class="nav-item">
-                    <a href='/login' class="nav-link"><button class="btn btn-outline-success" type="submit">Login/Signup
+                    <a href='/login' class="nav-link"><button class="btn btn-success" type="submit">Login/Signup
                             with Google</button></a>
                 </span>
                 {% endif %}
             </div>
         </div>
     </nav>
-</head>
+        <div class="container text-light text-center p-5">
+            <h1 class="display-4">Augustine Li</h1>
+            <hr>
+            <p>Blogger, Cybersecurity analyst</p>
+            <a href="#" class="btn btn-primary">link</a>
+        </div>
+    </div>
+    
 
-<body>
-    <h2 class="text-center">My experience</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-3 mx-auto">
+    
+    <h1 class="display-5 text-dark text-center">My experience</h1>
+    <hr>
+    <div class="container"></div>
+    <div class="row row-cols-1 row-cols-md-2 g-4 d-flex">
         <div class="col">
-            <div class="card h-100">
+            <div class="card h-100 ms-auto" style="width: 28rem;">
                 <img src="/static/cybersecurity.jpg" class="card-img-top" width="400" height="250">
                 <div class="card-body">
                     <h5 class="card-title">Cybersecurity</h5>
@@ -90,8 +107,9 @@
                 </div>
             </div>
         </div>
+
         <div class="col">
-            <div class="card h-100">
+            <div class="card h-100" style="width: 28rem;">
                 <img src="/static/python.png" class="card-img-top" width="400" height="250">
                 <div class="card-body">
                     <h5 class="card-title">Python</h5>
@@ -99,16 +117,29 @@
                 </div>
             </div>
         </div>
+
         <div class="col">
-            <div class="card h-100">
+            <div class="card h-100 ms-auto" style="width: 28rem;">
                 <img src="/static/flask.png" class="card-img-top" width="400" height="250">
                 <div class="card-body">
                     <h5 class="card-title">Flask</h5>
-                    <p class="card-text">This page is made using flask.</p>
+                    <p class="card-text">This page is made using Flask.</p>
                 </div>
             </div>
         </div>
+
+        <div class="col">
+            <div class="card h-100" style="width: 28rem;">
+                <img src="/static/react.png" class="card-img-top" width="400" height="250">
+                <div class="card-body">
+                    <h5 class="card-title">React</h5>
+                    <p class="card-text">This page is made using React.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
 </body>
 
 </html>
