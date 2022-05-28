@@ -20,11 +20,13 @@
 
 </head>
 
+
+
 <body>
     <div class="bg-image" style="
     background-image: url(/static/galaxy.jpg);
     background-size: cover;
-  ">
+    ">
       <nav class="navbar navbar-expand-md sticky-top navbar-dark shadow-5-strong">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Augustine Li</a>
@@ -45,11 +47,8 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/computer_articles">Computers</a></li>
-                            <li><a class="dropdown-item" href="#">Cybersecurity</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Politics</a></li>
+                            <li><a class="dropdown-item" href="/cybersecurity_articles">Cybersecurity</a></li>
+                            <li><a class="dropdown-item" href="/politics_articles">Politics</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -87,21 +86,18 @@
         <div class="container text-light text-center p-5">
             <h1 class="display-4">Augustine Li</h1>
             <hr>
-            <p>Blogger, Cybersecurity analyst</p>
-            <a href="#" class="btn btn-primary">link</a>
+            <p>Blogger and Cybersecurity Enthusiast</p>
         </div>
-    </div>
+    
     
 
-    
-    <h1 class="display-5 text-dark text-center">My experience</h1>
-    <hr>
-    <div class="container"></div>
-    <div class="row row-cols-1 row-cols-md-2 g-4 d-flex">
+    <h1 class="display-5 text-light text-center">My experience</h1>
+    <hr class="text-light">
+    <div class="row row-cols-1 row-cols-md-4 g-4 d-flex">
         <div class="col">
-            <div class="card h-100 ms-auto" style="width: 28rem;">
+            <div class="card h-100" style="width: 22rem;">
                 <img src="/static/cybersecurity.jpg" class="card-img-top" width="400" height="250">
-                <div class="card-body">
+                <div class="card-body text-light bg-dark">
                     <h5 class="card-title">Cybersecurity</h5>
                     <p class="card-text">Cybersecurity certificate - Georgia State University</p>
                 </div>
@@ -109,9 +105,9 @@
         </div>
 
         <div class="col">
-            <div class="card h-100" style="width: 28rem;">
+            <div class="card h-100" style="width: 22rem;">
                 <img src="/static/python.png" class="card-img-top" width="400" height="250">
-                <div class="card-body">
+                <div class="card-body text-light bg-dark">
                     <h5 class="card-title">Python</h5>
                     <p class="card-text">General python programming.</p>
                 </div>
@@ -119,9 +115,9 @@
         </div>
 
         <div class="col">
-            <div class="card h-100 ms-auto" style="width: 28rem;">
+            <div class="card h-100" style="width: 22rem;">
                 <img src="/static/flask.png" class="card-img-top" width="400" height="250">
-                <div class="card-body">
+                <div class="card-body text-light bg-dark">
                     <h5 class="card-title">Flask</h5>
                     <p class="card-text">This page is made using Flask.</p>
                 </div>
@@ -129,17 +125,37 @@
         </div>
 
         <div class="col">
-            <div class="card h-100" style="width: 28rem;">
+            <div class="card h-100" style="width: 22rem;">
                 <img src="/static/react.png" class="card-img-top" width="400" height="250">
-                <div class="card-body">
+                <div class="card-body text-light bg-dark">
                     <h5 class="card-title">React</h5>
                     <p class="card-text">This page is made using React.</p>
                 </div>
             </div>
         </div>
-
     </div>
+    <br>
 </div>
+</div>
+
 </body>
+
+
+
+<footer class="text-center text-lg-start bg-dark text-light">
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <div class="me-5 d-none d-lg-block">
+            <span>
+                <h5>Augustine Li</h5>
+                <i class="bi bi-twitter"></i>
+            </span>
+        </div>
+
+    </section>
+
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2022 Copyright Augustine Li
+    </div>
+</footer>
 
 </html>

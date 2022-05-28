@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <h2 class="text-center">Computer Articles</h2>
+    <h2 class="text-center">{{topic}} Blog</h2>
     {% for article in articles %}
     <div class="card mb-3 mx-auto" style="max-width: 700px;">
         <a href="{{url_for('view_article', id=article.id)}}" class="stretched-link"></a>

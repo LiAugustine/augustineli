@@ -29,7 +29,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
     "DATABASE_URL"
 )  # get database_url from env
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "secret"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 bp = flask.Blueprint(
     "bp",
@@ -209,9 +209,34 @@ def add_title():
 @app.route("/computer_articles")
 def computer_articles():
     articles = (
-        Article.query.filter_by(author_id=AUTHOR_ID).order_by(Article.id.desc()).all()
+        Article.query.filter_by(author_id=AUTHOR_ID)
+        .filter_by(topic="Computers")
+        .order_by(Article.id.desc())
+        .all()
     )
-    return flask.render_template("computers.html", articles=articles)
+    return flask.render_template("blog.html", topic="Computer", articles=articles)
+
+
+@app.route("/cybersecurity_articles")
+def cybersecurity_articles():
+    articles = (
+        Article.query.filter_by(author_id=AUTHOR_ID)
+        .filter_by(topic="Cybersecurity")
+        .order_by(Article.id.desc())
+        .all()
+    )
+    return flask.render_template("blog.html", topic="Cybersecurity", articles=articles)
+
+
+@app.route("/politics_articles")
+def politics_articles():
+    articles = (
+        Article.query.filter_by(author_id=AUTHOR_ID)
+        .filter_by(topic="Politics")
+        .order_by(Article.id.desc())
+        .all()
+    )
+    return flask.render_template("blog.html", topic="Politics", articles=articles)
 
 
 @app.route("/view_article", methods=["GET"])

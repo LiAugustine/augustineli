@@ -19,7 +19,7 @@ const modules = {
 
 
 const App = () => {
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState("Computers");
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -29,7 +29,9 @@ const App = () => {
   const [myArticles, setMyArticles] = useState([]);
 
   const current = new Date();
-  const date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`;
+  let monthNumber = (current.getMonth());
+  let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const date = `${monthNames[monthNumber]} ${current.getDate()}, ${current.getFullYear()}`;
 
   useEffect(() => {
     fetch('/get_articles', {
@@ -44,7 +46,7 @@ const App = () => {
   }, []);
 
   console.log(myArticles);
-  console.log(topic)
+  console.log(topic);
 
   useEffect(() => {
     fetch('/get_author', {
@@ -80,7 +82,7 @@ const App = () => {
       <label>
         <h4>Article Topic:</h4>
         <select value={topic} onChange={e => setTopic(e.target.value)}>
-          <option value="Computer Hardware">Computer Hardware</option>
+          <option value="Computers">Computers</option>
           <option value="Cybersecurity">Cybersecurity</option>
           <option value="Politics">Politics</option>
         </select>
@@ -107,7 +109,7 @@ const App = () => {
           <input type="text" name="name" onChange={e => setSubtitle(e.target.value)} />
         </label>
       </form>
-      <h4>{author}, {date}</h4>
+      <h4>By {author}. {date}.</h4>
       <ReactQuill modules={modules} ReactQuill theme="snow" onChange={setNewArticle} placeholder="Start typing..." />
       <br></br>
       <button onClick={onClickAdd}>Publish Article</button>
