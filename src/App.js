@@ -45,8 +45,7 @@ const App = () => {
       });
   }, []);
 
-  console.log(myArticles);
-  console.log(topic);
+  console.log(newArticle);
 
   useEffect(() => {
     fetch('/get_author', {

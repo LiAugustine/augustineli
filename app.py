@@ -1,4 +1,3 @@
-from multiprocessing import AuthenticationError
 import os
 import pathlib
 import json
@@ -67,22 +66,23 @@ def load_user(user_name):
     return User.query.get(user_name)
 
 
-secrets = {
-    "web": {
-        "client_id": GOOGLE_CLIENT_ID,
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth?prompt=select_account",  # make user select an account
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_secret": GOOGLE_CLIENT_SECRET,
-        "redirect_uris": [
-            "http://127.0.0.1:5000/callback",
-        ],
-    }
-}
 __location__ = pathlib.Path(__file__).parent
-f = open(os.path.join(__location__, "client_secrets.json"), "w")
-f.write(json.dumps(secrets))
-f.close()
+if not os.path.exists(os.path.join(__location__, "client_secrets.json")):
+    secrets = {
+        "web": {
+            "client_id": GOOGLE_CLIENT_ID,
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth?prompt=select_account",  # make user select an account
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "client_secret": GOOGLE_CLIENT_SECRET,
+            "redirect_uris": [
+                "http://127.0.0.1:5000/callback",
+            ],
+        }
+    }
+    f = open(os.path.join(__location__, "client_secrets.json"), "w")
+    f.write(json.dumps(secrets))
+    f.close()
 client_secrets_file = os.path.join(__location__, "client_secrets.json")
 
 flow = Flow.from_client_secrets_file(
@@ -131,7 +131,6 @@ def callback():
 
     name = id_info.get("name")
     google_id = id_info.get("sub")
-    session["google_id"] = google_id
     exists = User.query.filter_by(google_id=google_id).first()
     if not exists:
         db.session.add(User(google_id=google_id, name=name))
