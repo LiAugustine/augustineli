@@ -1,21 +1,5 @@
-import { useState, useEffect } from "react";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-
-const modules = {
-  toolbar: [
-    [{ font: [] }],
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ["bold", "italic", "underline", "strike"],
-    [{ color: [] }, { background: [] }],
-    [{ script: "sub" }, { script: "super" }],
-    ["blockquote", "code-block"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-};
+import { useState, useEffect, useRef } from "react";
+import { Editor } from '@tinymce/tinymce-react';
 
 
 const App = () => {
@@ -32,6 +16,14 @@ const App = () => {
   let monthNumber = (current.getMonth());
   let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const date = `${monthNames[monthNumber]} ${current.getDate()}, ${current.getFullYear()}`;
+
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+      setNewArticle(editorRef.current.getContent());
+    }
+  };
 
   useEffect(() => {
     fetch('/get_articles', {
@@ -109,7 +101,25 @@ const App = () => {
         </label>
       </form>
       <h4>By {author}. {date}.</h4>
-      <ReactQuill modules={modules} ReactQuill theme="snow" onChange={setNewArticle} placeholder="Start typing..." />
+      <Editor onChange={log}
+        apiKey={process.env.REACT_APP_TINY_MCE}
+        onInit={(evt, editor) => editorRef.current = editor}
+        initialValue="<p>This is the initial content of the editor.</p>"
+        init={{
+          height: 500,
+          menubar: false,
+          plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+          ],
+          toolbar: 'undo redo | blocks | ' +
+            'bold italic forecolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        }}
+      />
       <br></br>
       <button onClick={onClickAdd}>Publish Article</button>
       <br></br>
