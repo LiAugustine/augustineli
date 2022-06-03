@@ -1,5 +1,5 @@
 .env
-client_secrets.json
+google_secrets.json
 __pycache__/
 
 # dependencies

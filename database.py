@@ -1,8 +1,13 @@
+"""
+database.py is responsible for creating the database containing users
+and articles.
+"""
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+from app_config import app
 from flask_login import UserMixin
 
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 
 
 class User(db.Model, UserMixin):
@@ -23,3 +28,6 @@ class Article(db.Model, UserMixin):
     author_id = db.Column(db.Float, ForeignKey("Users.google_id"))
     date = db.Column(db.String(100), unique=False, nullable=False)
     article = db.Column(db.Text, unique=False, nullable=False)
+
+
+db.create_all()
