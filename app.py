@@ -1,3 +1,8 @@
+"""
+app.py is the main file which is run. Contains the routes responsible
+for allowing user to navigate through the website. 
+"""
+
 import flask
 from app_config import app, AUTHOR_ID, react
 from google_login import google_login
@@ -18,7 +23,8 @@ login_manager.login_view = "login"
 @login_manager.unauthorized_handler
 def unauthorized():
     """
-    This function checks if user logged in before accessing content
+    Message is displayed when a page requires logging in
+    to access.
     """
     return "You must be logged in to access this content.", 403
 
@@ -26,7 +32,7 @@ def unauthorized():
 @login_manager.user_loader
 def load_user(user_name):
     """
-    This function gets username and send it as query
+    Loads the user via flask-login.
     """
     return User.query.get(user_name)
 
@@ -35,7 +41,8 @@ def load_user(user_name):
 @login_required
 def logout():
     """
-    This function redirects to root page
+    Logs the user out through flask-login
+    and returns to the home page.
     """
     logout_user()
     flask.flash("Logged out!")

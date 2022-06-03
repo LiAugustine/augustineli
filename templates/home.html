@@ -67,6 +67,7 @@
                 <span class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{current_user.picture}}" class="rounded-circle" style="width: 33px;" alt="Avatar">
                         {{current_user.name}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -76,8 +77,7 @@
                 </span>
                 {% else %}
                 <span class="nav-item">
-                    <a href='/login' class="nav-link"><button class="btn btn-success" type="submit">Login/Signup
-                            with Google</button></a>
+                    <a href='/login' class="nav-link"><button class="btn btn-success" type="submit">Sign-in</button></a>
                 </span>
                 {% endif %}
             </div>

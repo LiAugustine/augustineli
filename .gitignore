@@ -1,5 +1,4 @@
 .env
-google_secrets.json
 __pycache__/
 
 # dependencies

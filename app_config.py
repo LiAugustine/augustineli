@@ -1,6 +1,6 @@
 """
 app_config.py initializes and configures the flask app and imports
-the environmental variables.
+the environmental variables. Provides modular access for other files.
 """
 import os
 from flask import Flask, Blueprint

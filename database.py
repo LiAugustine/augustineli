@@ -1,5 +1,5 @@
 """
-database.py is responsible for creating the database containing users
+database.py is responsible for the database containing users
 and articles.
 """
 from flask_sqlalchemy import SQLAlchemy
@@ -13,8 +13,9 @@ db = SQLAlchemy(app)
 class User(db.Model, UserMixin):
     __tablename__ = "Users"
     id = db.Column(db.Integer, primary_key=True)
-    google_id = db.Column(db.Float, unique=True, nullable=False)
     name = db.Column(db.String(100), unique=False, nullable=False)
+    picture = db.Column(db.Text, unique=False, nullable=True)
+    google_id = db.Column(db.Float, unique=True, nullable=True)
 
 
 class Article(db.Model, UserMixin):

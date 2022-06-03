@@ -1,90 +1,86 @@
-import os
-from pathlib import Path
-from json import dumps
+"""
+google_login.py handles account creation and login using a Google account.
+This code is based off of the following tutorial with some adjustments: 
+https://realpython.com/flask-google-login/
+"""
+import json
 import requests
-from flask import Blueprint, session, abort, redirect, request
+from flask import Blueprint, redirect, request
 from flask_login import login_user
-import google.auth.transport.requests
-from pip._vendor import cachecontrol
-from google.oauth2 import id_token
-from google_auth_oauthlib.flow import Flow
+from oauthlib.oauth2 import WebApplicationClient
 
 from app_config import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 from database import db, User
 
-
+# create blueprint to allow app.py to access the routes.
 google_login = Blueprint("google_login", __name__)
 
+client = WebApplicationClient(GOOGLE_CLIENT_ID)
+GOOGLE_DISCOVERY_URL = "https://accounts.google.com/.well-known/openid-configuration"
 
-__location__ = Path(__file__).parent
-if not os.path.exists(os.path.join(__location__, "google_secrets.json")):
-    secrets = {
-        "web": {
-            "client_id": GOOGLE_CLIENT_ID,
-            "auth_uri": "https://accounts.google.com/o/oauth2/auth?prompt=select_account",
-            "token_uri": "https://oauth2.googleapis.com/token",
-            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-            "client_secret": GOOGLE_CLIENT_SECRET,
-            "redirect_uris": [
-                "http://127.0.0.1:5000/callback",
-            ],
-        }
-    }
-    f = open(os.path.join(__location__, "google_secrets.json"), "w")
-    f.write(dumps(secrets))
-    f.close()
 
-client_secrets_file = os.path.join(__location__, "google_secrets.json")
-
-flow = Flow.from_client_secrets_file(
-    client_secrets_file=client_secrets_file,
-    scopes=[
-        "https://www.googleapis.com/auth/userinfo.profile",
-        "https://www.googleapis.com/auth/userinfo.email",
-        "openid",
-    ],
-    # For local deployment, use this line of code:
-    redirect_uri="http://127.0.0.1:5000/callback",
-    # For heroku deployment, use this redirect_uri
-    # redirect_uri="",
-)
+def get_google_provider_cfg():
+    return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
 @google_login.route("/login")
 def login():
     """
-    This function routes to login page
+    This function routes to Google Login page.
     """
-    authorization_url, state = flow.authorization_url()
-    session["state"] = state
-    return redirect(authorization_url)
+    google_provider_cfg = get_google_provider_cfg()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+    request_uri = client.prepare_request_uri(
+        authorization_endpoint,
+        redirect_uri=request.base_url + "/callback",
+        scope=["openid", "email", "profile"],
+    )
+    return redirect(request_uri)
 
 
-@google_login.route("/callback")
+@google_login.route("/login/callback")
 def callback():
     """
-    This function handles logins via google account
+    Handles the callback.
     """
-    flow.fetch_token(authorization_response=request.url)
-    if not session["state"] == request.args["state"]:
-        abort(500)
-    credentials = flow.credentials
-    request_session = requests.session()
-    cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
 
-    id_info = id_token.verify_oauth2_token(
-        id_token=credentials._id_token,
-        request=token_request,
-        audience=GOOGLE_CLIENT_ID,
-        clock_skew_in_seconds=10,  # allows system time to be up to 10 seconds off from server time
+    code = request.args.get("code")
+
+    google_provider_cfg = get_google_provider_cfg()
+    token_endpoint = google_provider_cfg["token_endpoint"]
+
+    token_url, headers, body = client.prepare_token_request(
+        token_endpoint,
+        authorization_response=request.url,
+        redirect_url=request.base_url,
+        code=code,
+    )
+    token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
     )
 
-    name = id_info.get("name")
-    google_id = id_info.get("sub")
+    client.parse_request_body_response(json.dumps(token_response.json()))
+
+    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+    uri, headers, body = client.add_token(userinfo_endpoint)
+    userinfo_response = requests.get(uri, headers=headers, data=body)
+
+    if userinfo_response.json().get("email_verified"):
+        name = userinfo_response.json()["name"]  # get name of user
+        google_id = userinfo_response.json()["sub"]  # get unique google id
+        picture = userinfo_response.json()["picture"]
+        # users_email = userinfo_response.json()["email"]
+        # users_name = userinfo_response.json()["given_name"]
+    else:
+        return "User email not available or not verified by Google.", 400
+
     exists = User.query.filter_by(google_id=google_id).first()
     if not exists:
-        db.session.add(User(google_id=google_id, name=name))
+        db.session.add(User(name=name, google_id=google_id, picture=picture))
         db.session.commit()
     user = User.query.filter_by(name=name).first()
     login_user(user)
