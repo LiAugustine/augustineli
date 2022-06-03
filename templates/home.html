@@ -77,8 +77,29 @@
                 </span>
                 {% else %}
                 <span class="nav-item">
-                    <a href='/login' class="nav-link"><button class="btn btn-success" type="submit">Sign-in</button></a>
-                </span>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Sign-in
+                </button>
+  
+                <!-- Modal -->
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLabel">Sign-in Options</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <a href='/login' class="nav-link"><button class="btn btn-success" type="submit">Sign-in with Google!</button></a>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </span>
                 {% endif %}
             </div>
         </div>

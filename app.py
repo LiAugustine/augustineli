@@ -3,7 +3,7 @@ app.py is the main file which is run. Contains the routes responsible
 for allowing user to navigate through the website. 
 """
 
-import flask
+from flask import flash, jsonify, redirect, request, render_template
 from app_config import app, AUTHOR_ID, react
 from google_login import google_login
 from database import db, User, Article
@@ -45,24 +45,24 @@ def logout():
     and returns to the home page.
     """
     logout_user()
-    flask.flash("Logged out!")
-    return flask.redirect("/")
+    flash("Logged out!")
+    return redirect("/")
 
 
 @app.route("/")
 def main():
-    return flask.render_template("home.html")
+    return render_template("home.html")
 
 
 @app.route("/get_author")
 def get_author():
-    return flask.jsonify(current_user.name)
+    return jsonify(current_user.name)
 
 
 @app.route("/get_articles")
 def get_articles():
     my_articles = Article.query.filter_by(author_id=AUTHOR_ID).all()
-    return flask.jsonify(
+    return jsonify(
         [
             {
                 "topic": article.topic,
@@ -80,7 +80,7 @@ def get_articles():
 
 @app.route("/add_article", methods=["POST"])
 def add_title():
-    article = flask.request.json
+    article = request.json
     print(article)
     new_article = Article(
         topic=article.get("topic"),
@@ -94,7 +94,7 @@ def add_title():
     )
     db.session.add(new_article)
     db.session.commit()
-    return flask.jsonify(article.get("title"))
+    return jsonify(article.get("title"))
 
 
 @app.route("/computer_articles")
@@ -105,7 +105,7 @@ def computer_articles():
         .order_by(Article.id.desc())
         .all()
     )
-    return flask.render_template("blog.html", topic="Computer", articles=articles)
+    return render_template("blog.html", topic="Computer", articles=articles)
 
 
 @app.route("/cybersecurity_articles")
@@ -116,7 +116,7 @@ def cybersecurity_articles():
         .order_by(Article.id.desc())
         .all()
     )
-    return flask.render_template("blog.html", topic="Cybersecurity", articles=articles)
+    return render_template("blog.html", topic="Cybersecurity", articles=articles)
 
 
 @app.route("/politics_articles")
@@ -127,20 +127,20 @@ def politics_articles():
         .order_by(Article.id.desc())
         .all()
     )
-    return flask.render_template("blog.html", topic="Politics", articles=articles)
+    return render_template("blog.html", topic="Politics", articles=articles)
 
 
 @app.route("/view_article", methods=["GET"])
 def view_article():
-    article_id = flask.request.args.get("id")
+    article_id = request.args.get("id")
     article = Article.query.get(article_id)
-    return flask.render_template("article.html", article=article)
+    return render_template("article.html", article=article)
 
 
 @react.route("/article_manager")
 @login_required
 def article_manager():
-    return flask.render_template("index.html")
+    return render_template("index.html")
 
 
 app.register_blueprint(react)
