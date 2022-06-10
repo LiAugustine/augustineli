@@ -29,8 +29,10 @@ def login():
     This function routes to Google Login page.
     """
     google_provider_cfg = get_google_provider_cfg()
-    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
-
+    authorization_endpoint = (
+        google_provider_cfg["authorization_endpoint"] + "?prompt=select_account"
+    )
+    # Make user select a google account even if they are already logged into one.
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
         redirect_uri=request.base_url + "/callback",

@@ -1,4 +1,7 @@
+import './App.css';
 import { useState, useEffect, useRef } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Articles from "./pages/Articles";
 import { Editor } from '@tinymce/tinymce-react';
 
 
@@ -123,8 +126,9 @@ const App = () => {
       <br></br>
       <button onClick={onClickAdd}>Publish Article</button>
       <br></br>
-      <h2>Your articles</h2>
-      {myArticles.map((article) => <p>{article.title}</p>)}
+      <h2>Edit your articles</h2>
+      <p>
+      </p>
     </div>
   )
 }
