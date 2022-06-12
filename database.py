@@ -15,7 +15,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
     picture = db.Column(db.Text, unique=False, nullable=True)
-    google_id = db.Column(db.Float, unique=True, nullable=True)
+    account_id = db.Column(db.String(100), unique=True, nullable=False)
+    google_id = db.Column(db.String(100), unique=True, nullable=True)
 
 
 class Article(db.Model, UserMixin):
@@ -26,7 +27,7 @@ class Article(db.Model, UserMixin):
     title = db.Column(db.String(100), unique=False, nullable=False)
     subtitle = db.Column(db.String(500), unique=False, nullable=False)
     author = db.Column(db.String(100), unique=False, nullable=False)
-    author_id = db.Column(db.Float, ForeignKey("Users.google_id"))
+    author_id = db.Column(db.String(100), ForeignKey("Users.account_id"))
     date = db.Column(db.String(100), unique=False, nullable=False)
     article = db.Column(db.Text, unique=False, nullable=False)
 

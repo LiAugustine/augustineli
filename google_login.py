@@ -5,6 +5,7 @@ https://realpython.com/flask-google-login/
 """
 import json
 import requests
+from uuid import uuid1
 from flask import Blueprint, redirect, request
 from flask_login import login_user
 from oauthlib.oauth2 import WebApplicationClient
@@ -31,8 +32,8 @@ def login():
     google_provider_cfg = get_google_provider_cfg()
     authorization_endpoint = (
         google_provider_cfg["authorization_endpoint"] + "?prompt=select_account"
-    )
-    # Make user select a google account even if they are already logged into one.
+    )  # Make user select a google account even if they are already logged into one.
+
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
         redirect_uri=request.base_url + "/callback",
@@ -82,8 +83,10 @@ def callback():
 
     exists = User.query.filter_by(google_id=google_id).first()
     if not exists:
-        db.session.add(User(name=name, google_id=google_id, picture=picture))
+        db.session.add(
+            User(name=name, picture=picture, google_id=google_id, account_id=uuid1())
+        )
         db.session.commit()
-    user = User.query.filter_by(name=name).first()
+    user = User.query.filter_by(google_id=google_id).first()
     login_user(user)
     return redirect("/")

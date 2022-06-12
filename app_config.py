@@ -27,3 +27,5 @@ react = Blueprint(
     __name__,
     template_folder="./static/react",
 )
+
+port = int(environ.get("PORT", 5000))

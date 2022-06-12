@@ -4,7 +4,7 @@ for allowing user to navigate through the website.
 """
 
 from flask import flash, jsonify, redirect, request, render_template
-from app_config import app, AUTHOR_ID, react
+from app_config import app, AUTHOR_ID, react, port
 from google_login import google_login
 from database import db, User, Article
 
@@ -51,7 +51,7 @@ def logout():
 
 @app.route("/")
 def main():
-    return render_template("home.html")
+    return render_template("home.html", AUTHOR_ID=AUTHOR_ID)
 
 
 @app.route("/get_author")
@@ -140,6 +140,10 @@ def view_article():
 @react.route("/article_manager")
 @login_required
 def article_manager():
+    """
+    Routes to react page for creating articles.
+    Only the creator's account can access.
+    """
     return render_template("index.html")
 
 
@@ -147,3 +151,9 @@ app.register_blueprint(react)
 app.register_blueprint(google_login)
 
 app.run()
+
+# app.run(
+# host="0.0.0.0",
+# port=port,
+# debug=True
+# )
