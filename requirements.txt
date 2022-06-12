@@ -1,0 +1,6 @@
+Flask
+flask-login
+Flask-SQLAlchemy
+oauthlib.oauth2
+requests
+python-dotenv
