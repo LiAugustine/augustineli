@@ -34,8 +34,8 @@ def login():
         google_provider_cfg["authorization_endpoint"] + "?prompt=select_account"
     )  # Make user select a google account even if they are already logged into one.
 
-    redirect_uri = request.base_url.replace("http://", "https://") + "/callback"
-
+    redirect_uri = request.base_url + "/callback"
+    redirect_uri = redirect_uri.replace("http://", "https://")
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
         redirect_uri=redirect_uri,
