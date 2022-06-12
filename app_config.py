@@ -23,7 +23,7 @@ if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgres://"):
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = SECRET_KEY
 
-# environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # set environment to HTTPS
+environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # set environment to HTTPS
 
 # Blueprint for routing to React page
 react = Blueprint(
