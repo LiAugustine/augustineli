@@ -4,3 +4,4 @@ Flask-SQLAlchemy
 oauthlib
 requests
 python-dotenv
+psycopg2

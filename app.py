@@ -150,10 +150,10 @@ def article_manager():
 app.register_blueprint(react)
 app.register_blueprint(google_login)
 
-app.run()
+# app.run()
 
-# app.run(
-# host="0.0.0.0",
-# port=port,
-# debug=True
-# )
+app.run(
+    host="0.0.0.0",
+    port=port,
+    # debug=True
+)
