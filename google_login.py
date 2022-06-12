@@ -34,11 +34,14 @@ def login():
         google_provider_cfg["authorization_endpoint"] + "?prompt=select_account"
     )  # Make user select a google account even if they are already logged into one.
 
+    redirect_uri = request.base_url.replace("http://", "https://") + "/callback"
+
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=redirect_uri,
         scope=["openid", "email", "profile"],
     )
+    # print(request.base_url + "/callback")
     return redirect(request_uri)
 
 
@@ -59,6 +62,7 @@ def callback():
         redirect_url=request.base_url,
         code=code,
     )
+
     token_response = requests.post(
         token_url,
         headers=headers,
