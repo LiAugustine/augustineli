@@ -4,6 +4,7 @@ for allowing user to navigate through the website.
 """
 
 from flask import flash, jsonify, redirect, request, render_template
+from flask_talisman import Talisman
 from app_config import app, AUTHOR_ID, react, port
 from google_login import google_login
 from database import db, User, Article
@@ -150,7 +151,10 @@ app.register_blueprint(react)
 app.register_blueprint(google_login)
 
 # Local deployment:
-# app.run()
+# if __name__ == "__main__":
+#    app.run()
 
 # Heroku deployment:
-app.run(host="0.0.0.0", port=port, debug=True)
+Talisman(app, content_security_policy=None)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=port)
