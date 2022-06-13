@@ -81,7 +81,6 @@ def get_articles():
 @app.route("/add_article", methods=["POST"])
 def add_title():
     article = request.json
-    print(article)
     new_article = Article(
         topic=article.get("topic"),
         image=article.get("image"),
@@ -150,6 +149,8 @@ def article_manager():
 app.register_blueprint(react)
 app.register_blueprint(google_login)
 
+# Local deployment:
 # app.run()
 
+# Heroku deployment:
 app.run(host="0.0.0.0", port=port, debug=True)

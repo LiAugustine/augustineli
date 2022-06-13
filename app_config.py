@@ -4,6 +4,7 @@ the environmental variables. Provides modular access for other files.
 """
 from os import getenv, environ
 from flask import Flask, Blueprint
+from flask_talisman import Talisman
 from dotenv import find_dotenv, load_dotenv
 
 load_dotenv(find_dotenv())
@@ -32,4 +33,6 @@ react = Blueprint(
     template_folder="./static/react",
 )
 
-port = int(environ.get("PORT", 5000))
+port = int(getenv("PORT", 8080))
+
+# Talisman(app, content_security_policy=None)
