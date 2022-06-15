@@ -10,8 +10,6 @@ const AddArticle = () => {
     const [author, setAuthor] = useState("");
     const [newArticle, setNewArticle] = useState("");
 
-    const [myArticles, setMyArticles] = useState([]);
-
     const current = new Date();
     let monthNumber = (current.getMonth());
     let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -24,18 +22,6 @@ const AddArticle = () => {
             setNewArticle(editorRef.current.getContent());
         }
     };
-
-    useEffect(() => {
-        fetch('/get_articles', {
-            method: "GET",
-            headers: {
-                "content_type": "application/json",
-            },
-        }).then(response => response.json())
-            .then(data => {
-                setMyArticles(data);
-            });
-    }, []);
 
     console.log(newArticle);
 
@@ -68,7 +54,19 @@ const AddArticle = () => {
     return (
         <div className="App">
             <h2>Add an Article</h2>
+            <form>
+                <label>
+                    <h4>Article Title:</h4>
+                    <input type="text" name="name" onChange={e => setTitle(e.target.value)} />
+                </label>
+            </form>
 
+            <form>
+                <label>
+                    <h4>Article Subtitle:</h4>
+                    <input type="text" name="name" onChange={e => setSubtitle(e.target.value)} />
+                </label>
+            </form>
 
             <label>
                 <h4>Article Topic:</h4>
@@ -86,20 +84,6 @@ const AddArticle = () => {
                 </label>
             </form>
 
-
-            <form>
-                <label>
-                    <h4>Article Title:</h4>
-                    <input type="text" name="name" onChange={e => setTitle(e.target.value)} />
-                </label>
-            </form>
-
-            <form>
-                <label>
-                    <h4>Article Subtitle:</h4>
-                    <input type="text" name="name" onChange={e => setSubtitle(e.target.value)} />
-                </label>
-            </form>
             <h4>By {author}. {date}.</h4>
             <Editor onChange={log}
                 apiKey={process.env.REACT_APP_TINY_MCE}

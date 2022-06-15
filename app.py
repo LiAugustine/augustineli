@@ -66,10 +66,10 @@ def get_articles():
     return jsonify(
         [
             {
-                "topic": article.topic,
-                "image": article.image,
                 "title": article.title,
                 "subtitle": article.subtitle,
+                "topic": article.topic,
+                "image": article.image,
                 "author": article.author,
                 "date": article.date,
                 "article": article.article,
@@ -83,10 +83,10 @@ def get_articles():
 def add_title():
     article = request.json
     new_article = Article(
-        topic=article.get("topic"),
-        image=article.get("image"),
         title=article.get("title"),
         subtitle=article.get("subtitle"),
+        topic=article.get("topic"),
+        image=article.get("image"),
         author=article.get("author"),
         author_id=AUTHOR_ID,
         date=article.get("date"),
@@ -152,11 +152,11 @@ def manage_articles():
 app.register_blueprint(react)
 app.register_blueprint(google_login)
 
-# # Local deployment:
-# if __name__ == "__main__":
-#     app.run()
+# Local deployment:
+if __name__ == "__main__":
+    app.run()
 
 # Heroku deployment:
-Talisman(app, content_security_policy=None)
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=port)
+# Talisman(app, content_security_policy=None)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=port)

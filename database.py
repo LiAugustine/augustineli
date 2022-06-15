@@ -30,10 +30,10 @@ class User(db.Model, UserMixin):
 class Article(db.Model, UserMixin):
     __tablename__ = "Articles"
     id = db.Column(db.Integer, primary_key=True)
-    topic = db.Column(db.String(50), unique=False, nullable=False)
-    image = db.Column(db.Text, unique=False, nullable=True)
     title = db.Column(db.String(100), unique=False, nullable=False)
     subtitle = db.Column(db.String(500), unique=False, nullable=False)
+    topic = db.Column(db.String(50), unique=False, nullable=False)
+    image = db.Column(db.Text, unique=False, nullable=True)
     author = db.Column(db.String(100), unique=False, nullable=False)
     author_id = db.Column(db.String(100), ForeignKey("Users.account_id"))
     date = db.Column(db.String(100), unique=False, nullable=False)
