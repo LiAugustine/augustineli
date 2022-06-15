@@ -12,6 +12,8 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
 
+    <script src="https://kit.fontawesome.com/c04ea0428a.js" crossorigin="anonymous"></script>
+
 
 </head>
 
@@ -30,13 +32,23 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{article.subtitle}}</h6>
                     <p class="card-text">{{article.author}} | {{article.date}} </p>
                     </a>
-                    <div id="like-button"></div>
-                        <!-- Load React. -->
-                        <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.already_liked(article) %}
+                        <i class="fa-solid fa-heart"></i> <span class="likes"> {{num_of_likes}}</span>
+                        <div id="like-button"></div>
                         <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>  
                         <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
                         <script src="/static/js/likeButton.js"></script>
-                    
+                        {% else %}
+                        <i class="fa-regular fa-heart"></i> <span class="likes"> {{num_of_likes}}</span>
+                        <div id="like-button"></div>
+                        <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>  
+                        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+                        <script src="/static/js/likeButton.js"></script>
+                        {% endif %}
+                    {% else %}
+                        <i class="fa-regular fa-heart"></i> <span class="likes"> {{num_of_likes}}</span>
+                    {% endif %}
                 </div>
             </div>
         </div>

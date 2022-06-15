@@ -7,7 +7,7 @@ from flask import flash, jsonify, redirect, request, render_template
 from flask_talisman import Talisman
 from app_config import app, AUTHOR_ID, react, port
 from google_login import google_login
-from database import db, User, Article
+from database import db, User, Article, Like, num_of_likes
 
 from flask_login import (
     LoginManager,
@@ -105,7 +105,9 @@ def computer_articles():
         .order_by(Article.id.desc())
         .all()
     )
-    return render_template("blog.html", topic="Computer", articles=articles)
+    return render_template(
+        "blog.html", topic="Computer", articles=articles, num_of_likes=num_of_likes()
+    )
 
 
 @app.route("/cybersecurity_articles")
@@ -137,9 +139,9 @@ def view_article():
     return render_template("article.html", article=article)
 
 
-@react.route("/article_manager")
+@react.route("/manage_articles")
 @login_required
-def article_manager():
+def manage_articles():
     """
     Routes to react page for creating articles.
     Only the creator's account can access.
@@ -150,9 +152,9 @@ def article_manager():
 app.register_blueprint(react)
 app.register_blueprint(google_login)
 
-# Local deployment:
+# # Local deployment:
 # if __name__ == "__main__":
-#    app.run()
+#     app.run()
 
 # Heroku deployment:
 Talisman(app, content_security_policy=None)

@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Articles from "./pages/Articles";
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -127,8 +127,14 @@ const App = () => {
       <button onClick={onClickAdd}>Publish Article</button>
       <br></br>
       <h2>Edit your articles</h2>
-      <p>
-      </p>
+      <Router>
+        <nav>
+          <Link to="/Articles">Articles</Link>
+        </nav>
+        <Routes>
+          <Route path="/Articles" element={<Articles />} />
+        </Routes>
+      </Router>
     </div>
   )
 }

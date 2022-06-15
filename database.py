@@ -18,6 +18,14 @@ class User(db.Model, UserMixin):
     account_id = db.Column(db.String(100), unique=True, nullable=False)
     google_id = db.Column(db.String(100), unique=True, nullable=True)
 
+    def already_liked(self, article):
+        return (
+            Like.query.filter(
+                Like.rater_id == self.account_id, Like.article_id == article.id
+            ).count()
+            > 0
+        )
+
 
 class Article(db.Model, UserMixin):
     __tablename__ = "Articles"
@@ -30,6 +38,28 @@ class Article(db.Model, UserMixin):
     author_id = db.Column(db.String(100), ForeignKey("Users.account_id"))
     date = db.Column(db.String(100), unique=False, nullable=False)
     article = db.Column(db.Text, unique=False, nullable=False)
+
+
+class Like(db.Model, UserMixin):
+    __tablename__ = "Likes"
+    id = db.Column(db.Integer, primary_key=True)
+    rater_id = db.Column(db.String(100), ForeignKey("Users.account_id"))
+    article_id = db.Column(db.Integer, ForeignKey("Articles.id"))
+
+
+def num_of_likes():
+    rows = db.session.query(Like).count()
+    return rows
+
+
+def like_article(rater_id, article_id):
+    db.session.add(rater_id, article_id)
+    db.session.commit()
+
+
+def unlike_article(rater_id, article_id):
+    db.session.add(rater_id, article_id)
+    db.session.commit()
 
 
 db.create_all()
