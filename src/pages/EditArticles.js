@@ -1,6 +1,6 @@
 import React from "react";
 
-const Articles = () => (
+const EditArticles = () => (
     <div>
         <h1>This is the Home Page</h1>
         <p>
@@ -12,4 +12,4 @@ const Articles = () => (
     </div>
 );
 
-export default Articles;
+export default EditArticles;
