@@ -97,6 +97,7 @@ def view_article():
     return render_template("article.html", article=article)
 
 
+# React routes for react backend and routing to the react page below
 @app.route("/get_author")
 def get_author():
     return jsonify(current_user.name)
