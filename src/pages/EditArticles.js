@@ -3,13 +3,7 @@ import { Editor } from '@tinymce/tinymce-react';
 
 const EditArticles = () => {
     const [articles, setArticles] = useState([]);
-
     const editorRef = useRef(null);
-    const log = () => {
-        if (editorRef.current) {
-            console.log(editorRef.current.getContent());
-        }
-    };
 
     useEffect(() => {
         fetch('/get_articles', {
@@ -25,6 +19,34 @@ const EditArticles = () => {
 
     function handleDelete(i) {
         setArticles([...articles.slice(0, i), ...articles.slice(i + 1)]);
+    }
+
+    function handleTitleEdit(i, e) {
+        const newArticles = articles.slice();
+        newArticles[i].title = e.target.value;
+        setArticles(newArticles);
+    }
+
+    function handleSubtitleEdit(i, e) {
+        const newArticles = articles.slice();
+        newArticles[i].subtitle = e.target.value;
+        setArticles(newArticles);
+    }
+
+    function handleTopicEdit(i, e) {
+        const newArticles = articles.slice();
+        newArticles[i].topic = e.target.value;
+        setArticles(newArticles);
+    }
+    function handleImageEdit(i, e) {
+        const newArticles = articles.slice();
+        newArticles[i].image = e.target.value;
+        setArticles(newArticles);
+    }
+    function handleArticleEdit(i, e) {
+        const newArticles = articles.slice();
+        newArticles[i].article = e.target.value;
+        setArticles(newArticles);
     }
 
     function onClickSave() {
@@ -46,20 +68,20 @@ const EditArticles = () => {
             <h2>Edit your articles</h2>
             <button onClick={onClickSave}>Save all changes</button>
             {articles.map((article, i) => <p>
-                Title: <input type="text" defaultValue={article.title} />  {' '}
-                Subtitle: <input type="text" defaultValue={article.subtitle} />  {' '}
+                Title: <input type="text" defaultValue={article.title} onChange={(e) => handleTitleEdit(i, e)} /> {' '}
+                Subtitle: <input type="text" defaultValue={article.subtitle} onChange={(e) => handleSubtitleEdit(i, e)} />  {' '}
                 Topic:  {' '}
                 <label>
-                    <select defaultValue={article.topic}>
+                    <select defaultValue={article.topic} onChange={(e) => handleTopicEdit(i, e)}>
                         <option value="Computers">Computers</option>
                         <option value="Cybersecurity">Cybersecurity</option>
                         <option value="Politics">Politics</option>
                     </select>
                 </label>
-                Image: <input type="text" defaultValue={article.image} />  {' '}
+                Image: <input type="text" defaultValue={article.image} onChange={(e) => handleImageEdit(i, e)} />  {' '}
                 <button onClick={() => handleDelete(i)}>Delete Article</button>
                 Article Text:
-                <Editor onChange={log}
+                <Editor onChange={(e) => handleArticleEdit(i, e)}
                     apiKey={process.env.REACT_APP_TINY_MCE}
                     onInit={(evt, editor) => editorRef.current = editor}
                     initialValue={article.article}

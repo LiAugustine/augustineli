@@ -106,6 +106,7 @@ const AddArticle = () => {
             />
             <br></br>
             <button onClick={onClickAdd}>Publish Article</button>
+            <br></br>
         </div>
     )
 }
