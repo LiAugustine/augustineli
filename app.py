@@ -55,48 +55,6 @@ def main():
     return render_template("home.html", AUTHOR_ID=AUTHOR_ID)
 
 
-@app.route("/get_author")
-def get_author():
-    return jsonify(current_user.name)
-
-
-@app.route("/get_articles")
-def get_articles():
-    my_articles = Article.query.filter_by(author_id=AUTHOR_ID).all()
-    return jsonify(
-        [
-            {
-                "title": article.title,
-                "subtitle": article.subtitle,
-                "topic": article.topic,
-                "image": article.image,
-                "author": article.author,
-                "date": article.date,
-                "article": article.article,
-            }
-            for article in my_articles
-        ]
-    )
-
-
-@app.route("/add_article", methods=["POST"])
-def add_title():
-    article = request.json
-    new_article = Article(
-        title=article.get("title"),
-        subtitle=article.get("subtitle"),
-        topic=article.get("topic"),
-        image=article.get("image"),
-        author=article.get("author"),
-        author_id=AUTHOR_ID,
-        date=article.get("date"),
-        article=article.get("newArticle"),
-    )
-    db.session.add(new_article)
-    db.session.commit()
-    return jsonify(article.get("title"))
-
-
 @app.route("/computer_articles")
 def computer_articles():
     articles = (
@@ -137,6 +95,48 @@ def view_article():
     article_id = request.args.get("id")
     article = Article.query.get(article_id)
     return render_template("article.html", article=article)
+
+
+@app.route("/get_author")
+def get_author():
+    return jsonify(current_user.name)
+
+
+@app.route("/get_articles")
+def get_articles():
+    my_articles = Article.query.filter_by(author_id=AUTHOR_ID).all()
+    return jsonify(
+        [
+            {
+                "title": article.title,
+                "subtitle": article.subtitle,
+                "topic": article.topic,
+                "image": article.image,
+                "author": article.author,
+                "date": article.date,
+                "article": article.article,
+            }
+            for article in my_articles
+        ]
+    )
+
+
+@app.route("/add_article", methods=["POST"])
+def add_title():
+    article = request.json
+    new_article = Article(
+        title=article.get("title"),
+        subtitle=article.get("subtitle"),
+        topic=article.get("topic"),
+        image=article.get("image"),
+        author=article.get("author"),
+        author_id=AUTHOR_ID,
+        date=article.get("date"),
+        article=article.get("newArticle"),
+    )
+    db.session.add(new_article)
+    db.session.commit()
+    return jsonify(article.get("title"))
 
 
 @app.route("/save_articles", methods=["POST"])
