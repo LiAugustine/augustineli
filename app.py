@@ -139,6 +139,31 @@ def view_article():
     return render_template("article.html", article=article)
 
 
+@app.route("/save_articles", methods=["POST"])
+def save_articles():
+    data = request.json
+    old_articles = Article.query.filter_by(author_id=current_user.account_id).all()
+    new_articles = [
+        Article(
+            title=article["title"],
+            subtitle=article["subtitle"],
+            topic=article["topic"],
+            image=article["image"],
+            author=article["author"],
+            author_id=AUTHOR_ID,
+            date=article["date"],
+            article=article["article"],
+        )
+        for article in data
+    ]
+    for article in old_articles:
+        db.session.delete(article)
+    for article in new_articles:
+        db.session.add(article)
+    db.session.commit()
+    return jsonify("Ratings successfully saved")
+
+
 @react.route("/manage_articles")
 @login_required
 def manage_articles():

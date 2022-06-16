@@ -23,14 +23,41 @@ const EditArticles = () => {
             });
     }, []);
 
+    function handleDelete(i) {
+        setArticles([...articles.slice(0, i), ...articles.slice(i + 1)]);
+    }
+
+    function onClickSave() {
+        fetch('/save_articles', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(articles),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            });
+    }
+
     return (
         <div>
             <h2>Edit your articles</h2>
-            {articles.map((article) => <p>
-                Title: <input type="text" defaultValue={article.title} />
-                Subtitle: <input type="text" defaultValue={article.subtitle} />
-                Topic: <input type="text" defaultValue={article.topic} />
-                Image: <input type="text" defaultValue={article.image} />
+            <button onClick={onClickSave}>Save all changes</button>
+            {articles.map((article, i) => <p>
+                Title: <input type="text" defaultValue={article.title} />  {' '}
+                Subtitle: <input type="text" defaultValue={article.subtitle} />  {' '}
+                Topic:  {' '}
+                <label>
+                    <select defaultValue={article.topic}>
+                        <option value="Computers">Computers</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="Politics">Politics</option>
+                    </select>
+                </label>
+                Image: <input type="text" defaultValue={article.image} />  {' '}
+                <button onClick={() => handleDelete(i)}>Delete Article</button>
                 Article Text:
                 <Editor onChange={log}
                     apiKey={process.env.REACT_APP_TINY_MCE}
