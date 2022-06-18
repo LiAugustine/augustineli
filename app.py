@@ -162,7 +162,7 @@ def save_articles():
     for article in new_articles:
         db.session.add(article)
     db.session.commit()
-    return jsonify("Ratings successfully saved")
+    return jsonify("Article changes saved")
 
 
 @react.route("/manage_articles")
@@ -171,6 +171,24 @@ def manage_articles():
     """
     Routes to react page for creating articles.
     Only the creator's account can access.
+    """
+    return render_template("index.html")
+
+
+@react.route("/AddArticle")
+@login_required
+def add_article_react():
+    """
+    Route to properly register AddArticle.js
+    """
+    return render_template("index.html")
+
+
+@react.route("/EditArticles")
+@login_required
+def edit_article_react():
+    """
+    Route to properly register EditArticles.js
     """
     return render_template("index.html")
 

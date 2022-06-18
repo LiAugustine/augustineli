@@ -59,7 +59,7 @@ const EditArticles = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                alert(data);
             });
     }
 
@@ -86,7 +86,6 @@ const EditArticles = () => {
                     onInit={(evt, editor) => editorRef.current = editor}
                     initialValue={article.article}
                     init={{
-                        width: 1200,
                         height: 300,
                         menubar: false,
                         plugins: [
