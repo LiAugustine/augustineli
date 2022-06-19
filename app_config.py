@@ -29,7 +29,8 @@ environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # set environment to HTTPS
 react = Blueprint(
     "react",
     __name__,
-    template_folder="./static/react",
+    static_folder="out/_next",
+    template_folder="out",
 )
 
 port = int(getenv("PORT", 8080))
