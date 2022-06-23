@@ -3,6 +3,7 @@ app.py is the main file which is run. Contains the routes responsible
 for allowing user to navigate through the website. 
 """
 
+from email.mime import image
 from flask import flash, jsonify, redirect, request, render_template
 from flask_talisman import Talisman
 from app_config import app, AUTHOR_ID, react, port
@@ -98,9 +99,23 @@ def view_article():
 
 
 # React routes for react backend and routing to the react page below
+
+
+@app.route("/get_user")
+def get_user():
+    if current_user.is_authenticated:
+        return jsonify(
+            {
+                "name": current_user.name,
+                "picture": current_user.picture,
+            }
+        )
+    return jsonify(False)
+
+
 @app.route("/get_author")
 def get_author():
-    return jsonify(current_user.name)
+    return jsonify("Augustine Li")
 
 
 @app.route("/get_articles")
@@ -116,6 +131,9 @@ def get_articles():
                 "author": article.author,
                 "date": article.date,
                 "article": article.article,
+                "likes": db.session.query(Like)
+                .filter(Like.article_id == Article.id)
+                .count(),
             }
             for article in my_articles
         ]
@@ -166,7 +184,7 @@ def save_articles():
 
 
 @react.route("/manage_articles")
-@login_required
+# @login_required
 def manage_articles():
     """
     Routes to react page for creating articles.
@@ -175,22 +193,31 @@ def manage_articles():
     return render_template("index.html")
 
 
+@react.route("/blog")
+# @login_required
+def blog():
+    """
+    Blog
+    """
+    return render_template("Blog.html")
+
+
 @react.route("/AddArticle")
-@login_required
+# @login_required
 def add_article_react():
     """
     Route to properly register AddArticle.js
     """
-    return render_template("index.html")
+    return render_template("AddArticle.html")
 
 
 @react.route("/EditArticles")
-@login_required
+# @login_required
 def edit_article_react():
     """
     Route to properly register EditArticles.js
     """
-    return render_template("index.html")
+    return render_template("EditArticles.html")
 
 
 app.register_blueprint(react)

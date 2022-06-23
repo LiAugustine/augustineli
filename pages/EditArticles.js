@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Editor } from '@tinymce/tinymce-react';
+import { Button, Heading } from '@chakra-ui/react'
 
 const EditArticles = () => {
     const [articles, setArticles] = useState([]);
@@ -66,7 +67,8 @@ const EditArticles = () => {
     return (
         <div>
             <h2>Edit your articles</h2>
-            <button onClick={onClickSave}>Save all changes</button>
+            <Button onClick={onClickSave}>Save all changes</Button>
+            <br></br>
             {articles.map((article, i) => <p>
                 Title: <input type="text" defaultValue={article.title} onChange={(e) => handleTitleEdit(i, e)} /> {' '}
                 Subtitle: <input type="text" defaultValue={article.subtitle} onChange={(e) => handleSubtitleEdit(i, e)} />  {' '}

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Editor } from '@tinymce/tinymce-react';
+import { Button, Heading, Input, FormControl, FormLabel } from '@chakra-ui/react'
 
 
 const AddArticle = () => {
@@ -53,36 +54,31 @@ const AddArticle = () => {
 
     return (
         <div className="App">
-            <h2>Add an Article</h2>
-            <form>
-                <label>
-                    <h4>Article Title:</h4>
-                    <input type="text" name="name" onChange={e => setTitle(e.target.value)} />
-                </label>
-            </form>
+            <Heading>Add an Article</Heading>
+            <br></br>
+            <FormControl isRequired>
+                <FormLabel htmlFor='title'>Article Title</FormLabel>
+                <Input id='title' placeholder='Title' onChange={e => setTitle(e.target.value)} />
+            </FormControl>
 
-            <form>
-                <label>
-                    <h4>Article Subtitle:</h4>
-                    <input type="text" name="name" onChange={e => setSubtitle(e.target.value)} />
-                </label>
-            </form>
+            <FormControl isRequired>
+                <FormLabel htmlFor='subtitle'>Article Subtitle</FormLabel>
+                <Input id='subtitle' placeholder='Subtitle' onChange={e => setSubtitle(e.target.value)} />
+            </FormControl>
 
-            <label>
-                <h4>Article Topic:</h4>
-                <select value={topic} onChange={e => setTopic(e.target.value)}>
+            <FormControl isRequired>
+                <FormLabel htmlFor='topic'>Topic</FormLabel>
+                <select id="topic" value={topic} onChange={e => setTopic(e.target.value)}>
                     <option value="Computers">Computers</option>
                     <option value="Cybersecurity">Cybersecurity</option>
                     <option value="Politics">Politics</option>
                 </select>
-            </label>
+            </FormControl>
 
-            <form>
-                <label>
-                    <h4>Add optional image URL:</h4>
-                    <input type="text" name="name" onChange={e => setImage(e.target.value)} />
-                </label>
-            </form>
+            <FormControl>
+                <FormLabel htmlFor='image'>Optional Image URL</FormLabel>
+                <Input id='image' placeholder='Image URL' onChange={e => setImage(e.target.value)} />
+            </FormControl>
 
             <h4>By {author}. {date}.</h4>
             <Editor onChange={log}
@@ -105,7 +101,7 @@ const AddArticle = () => {
                 }}
             />
             <br></br>
-            <button onClick={onClickAdd}>Publish Article</button>
+            <Button onClick={onClickAdd}>Publish Article</Button>
             <br></br>
         </div>
     )

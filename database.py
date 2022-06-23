@@ -38,6 +38,9 @@ class Article(db.Model, UserMixin):
     author_id = db.Column(db.String(100), ForeignKey("Users.account_id"))
     date = db.Column(db.String(100), unique=False, nullable=False)
     article = db.Column(db.Text, unique=False, nullable=False)
+    likes = db.relationship(
+        "Like", backref=db.backref("article", order_by="Like.article_id")
+    )
 
 
 class Like(db.Model, UserMixin):
