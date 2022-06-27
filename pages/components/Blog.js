@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Box, Badge, Image } from '@chakra-ui/react'
+import Link from 'next/link'
+import { Box, Badge, Center, Image } from '@chakra-ui/react'
 
 function Blog() {
-    const [articles, setArticles] = useState([]);
+    const [articles, setArticles] = useState([])
 
     useEffect(() => {
         fetch('/get_articles', {
@@ -19,48 +20,51 @@ function Blog() {
     return (
         <div>
             {articles.map((article) =>
-                <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-                    <Image src={article.image} />
-                    <Box p='6'>
-                        <Box display='flex' alignItems='baseline'>
-                            <Badge borderRadius='full' px='2' colorScheme='teal'>
-                                {article.topic}
-                            </Badge>
+                <Center>
+                    <Link href={'/components/post/' + article.id} key={article.id}>Link</Link>
+                    <Box maxW='md' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                        <Image src={article.image} />
+                        <Box p='6'>
+                            <Box display='flex' alignItems='baseline'>
+                                <Badge borderRadius='full' px='2' colorScheme='teal'>
+                                    {article.topic}
+                                </Badge>
+                                <Box
+                                    color='gray.500'
+                                    fontWeight='semibold'
+                                    letterSpacing='wide'
+                                    fontSize='xs'
+                                    textTransform='uppercase'
+                                    ml='2'
+                                >
+                                    {article.date}
+                                </Box>
+                            </Box>
+
                             <Box
-                                color='gray.500'
+                                mt='1'
                                 fontWeight='semibold'
-                                letterSpacing='wide'
-                                fontSize='xs'
-                                textTransform='uppercase'
-                                ml='2'
+                                as='h4'
+                                lineHeight='tight'
+                                noOfLines={1}
                             >
-                                {article.date}
+                                {article.title}
                             </Box>
-                        </Box>
 
-                        <Box
-                            mt='1'
-                            fontWeight='semibold'
-                            as='h4'
-                            lineHeight='tight'
-                            noOfLines={1}
-                        >
-                            {article.title}
-                        </Box>
-
-                        <Box>
-                            {article.subtitle}
-                            <Box as='span' color='gray.600' fontSize='sm'>
+                            <Box>
+                                {article.subtitle}
+                                <Box as='span' color='gray.600' fontSize='sm'>
+                                </Box>
                             </Box>
-                        </Box>
 
-                        <Box display='flex' mt='2' alignItems='center'>
-                            <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-                                {article.likes} likes
+                            <Box display='flex' mt='2' alignItems='center'>
+                                <Box as='span' ml='2' color='gray.600' fontSize='sm'>
+                                    {article.likes} likes
+                                </Box>
                             </Box>
                         </Box>
                     </Box>
-                </Box>
+                </Center>
             )}
         </div>
     )

@@ -124,6 +124,7 @@ def get_articles():
     return jsonify(
         [
             {
+                "id": article.id,
                 "title": article.title,
                 "subtitle": article.subtitle,
                 "topic": article.topic,
@@ -138,6 +139,37 @@ def get_articles():
             for article in my_articles
         ]
     )
+
+
+@app.route("/get_article")
+def get_article():
+    post_id = request.json
+    my_articles = Article.query.filter_by(author_id=AUTHOR_ID, id=post_id).all()
+    return jsonify(
+        [
+            {
+                "id": article.id,
+                "title": article.title,
+                "subtitle": article.subtitle,
+                "topic": article.topic,
+                "image": article.image,
+                "author": article.author,
+                "date": article.date,
+                "article": article.article,
+                "likes": db.session.query(Like)
+                .filter(Like.article_id == Article.id)
+                .count(),
+            }
+            for article in my_articles
+        ]
+    )
+
+
+@app.route("/article", methods=["GET"])
+def article():
+    article_id = request.json
+    article = Article.query.get(article_id)
+    return render_template("article.html", article=article)
 
 
 @app.route("/add_article", methods=["POST"])

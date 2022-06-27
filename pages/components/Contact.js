@@ -1,13 +1,13 @@
 import { Box, Center, Heading, Text } from '@chakra-ui/react'
-const Home = () => {
+const Contact = () => {
 
     return (
-        <div className="Home">
+        <div className="Contact">
             <Center>
                 <Box maxW='36rem'>
-                    <Heading as='h3' mb={3}>Augustine Li</Heading>
+                    <Heading as='h3' mb={3}>Contact</Heading>
                     <Text fontSize='xl'>
-                        Blogger, cybersecurity enthusiast, hobbyist web developer
+                        Insert Here
                     </Text>
                 </Box>
             </Center>
@@ -15,4 +15,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default Contact;

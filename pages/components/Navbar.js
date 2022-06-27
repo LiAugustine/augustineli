@@ -5,6 +5,7 @@ import {
     Popover, PopoverTrigger, Portal, PopoverContent, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody,
     Button, Tab, Tabs, TabList, TabPanel, TabPanels, Spacer, Link
 } from '@chakra-ui/react'
+import Home from "./Home";
 import Blog from "./Blog";
 
 const Navbar = () => {
@@ -87,8 +88,9 @@ const Navbar = () => {
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel>
 
+                    <TabPanel>
+                        <Home />
                     </TabPanel>
 
                     <TabPanel>
