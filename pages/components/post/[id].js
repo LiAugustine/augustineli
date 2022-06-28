@@ -3,12 +3,13 @@ const Post = () => {
 
     const router = useRouter()
     const { id } = router.query
+    const { title } = router.query
 
 
 
     return (
         <div>
-            <p>{id}</p>
+            <p>{id}{title}</p>
         </div>
     )
 }

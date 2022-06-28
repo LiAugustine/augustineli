@@ -51,7 +51,7 @@ def logout():
     return redirect("/")
 
 
-@app.route("/")
+@app.route("/home")
 def main():
     return render_template("home.html", AUTHOR_ID=AUTHOR_ID)
 
@@ -215,7 +215,7 @@ def save_articles():
     return jsonify("Article changes saved")
 
 
-@react.route("/manage_articles")
+@react.route("/")
 # @login_required
 def manage_articles():
     """
@@ -256,10 +256,10 @@ app.register_blueprint(react)
 app.register_blueprint(google_login)
 
 # Local deployment:
-# if __name__ == "__main__":
-#     app.run()
+if __name__ == "__main__":
+    app.run()
 
 # Heroku deployment:
-Talisman(app, content_security_policy=None)
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=port)
+# Talisman(app, content_security_policy=None)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=port)
