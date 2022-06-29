@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Editor } from '@tinymce/tinymce-react';
-import { Button, Heading } from '@chakra-ui/react'
+import { Button, Heading, Text, Input, FormControl, FormLabel } from '@chakra-ui/react'
 
 const EditArticles = () => {
     const [articles, setArticles] = useState([]);
@@ -66,23 +66,35 @@ const EditArticles = () => {
 
     return (
         <div>
-            <h2>Edit your articles</h2>
+            <Heading>Edit your articles</Heading>
             <Button onClick={onClickSave}>Save all changes</Button>
             <br></br>
             {articles.map((article, i) => <p>
-                Title: <input type="text" defaultValue={article.title} onChange={(e) => handleTitleEdit(i, e)} /> {' '}
-                Subtitle: <input type="text" defaultValue={article.subtitle} onChange={(e) => handleSubtitleEdit(i, e)} />  {' '}
-                Topic:  {' '}
-                <label>
-                    <select defaultValue={article.topic} onChange={(e) => handleTopicEdit(i, e)}>
+                <FormControl>
+                    <FormLabel htmlFor='title'>Title</FormLabel>
+                    <Input id='title' defaultValue={article.title} onChange={(e) => handleTitleEdit(i, e)} />
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel htmlFor='subtitle'>Subtitle</FormLabel>
+                    <Input id='subtitle' defaultValue={article.subtitle} onChange={(e) => handleSubtitleEdit(i, e)} />
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel htmlFor='topic'>Topic</FormLabel>
+                    <select id="topic" defaultValue={article.topic} onChange={(e) => handleTopicEdit(i, e)}>
                         <option value="Computers">Computers</option>
                         <option value="Cybersecurity">Cybersecurity</option>
                         <option value="Politics">Politics</option>
                     </select>
-                </label>
-                Image: <input type="text" defaultValue={article.image} onChange={(e) => handleImageEdit(i, e)} />  {' '}
-                <button onClick={() => handleDelete(i)}>Delete Article</button>
-                Article Text:
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel htmlFor='image'>Image</FormLabel>
+                    <Input id='iamge' defaultValue={article.image} onChange={(e) => handleImageEdit(i, e)} />
+                </FormControl>
+
+                <Text>Article Text:</Text>
                 <Editor onChange={(e) => handleArticleEdit(i, e)}
                     apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
                     onInit={(evt, editor) => editorRef.current = editor}

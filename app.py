@@ -235,7 +235,7 @@ def blog():
 
 
 @react.route("/AddArticle")
-# @login_required
+@login_required
 def add_article_react():
     """
     Route to properly register AddArticle.js
@@ -244,7 +244,7 @@ def add_article_react():
 
 
 @react.route("/EditArticles")
-# @login_required
+@login_required
 def edit_article_react():
     """
     Route to properly register EditArticles.js
