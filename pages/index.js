@@ -1,13 +1,20 @@
-import Navbar from "./components/Navbar";
+import { Box, Center, Heading, Text } from '@chakra-ui/react'
+import Navbar from "./Navbar";
 
-const App = () => {
-
-
+const Home = () => {
   return (
-    <div className="App">
+    <div>
       <Navbar />
+      <Center>
+        <Box maxW='36rem'>
+          <Heading as='h3' mb={3}>Augustine Li</Heading>
+          <Text fontSize='xl'>
+            Blogger, cybersecurity enthusiast, hobbyist web developer
+          </Text>
+        </Box>
+      </Center>
     </div>
   )
 }
 
-export default App;
+export default Home;

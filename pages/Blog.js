@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { Box, Badge, Link, Center, Image } from '@chakra-ui/react'
+import Navbar from "./Navbar";
 
 function Blog() {
     const [articles, setArticles] = useState([])
@@ -20,6 +21,7 @@ function Blog() {
 
     return (
         <div>
+            <Navbar />
             {articles.map((article) =>
                 <Center h='170px'>
                     <Box maxW='md' borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -49,7 +51,7 @@ function Blog() {
                                 noOfLines={1}
                             >
                                 <Link onClick={() => router.push({
-                                    pathname: '/components/post/' + article.title,
+                                    pathname: "/" + article.id,
                                     query: {
                                         id: article.id,
                                         title: article.title,
@@ -61,7 +63,7 @@ function Blog() {
                                         article: article.article,
                                         likes: article.likes,
                                     }
-                                }, '/components/post/' + article.title)}>
+                                }, "/" + article.id)}>
                                     {article.title}
                                 </Link>
                             </Box>

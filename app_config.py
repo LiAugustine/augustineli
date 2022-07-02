@@ -14,7 +14,11 @@ GOOGLE_CLIENT_ID = getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = getenv("GOOGLE_CLIENT_SECRET")
 AUTHOR_ID = getenv("AUTHOR_ID")
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="out/_next",
+    template_folder="out",
+)
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgres://"):
     app.config["SQLALCHEMY_DATABASE_URI"] = app.config[

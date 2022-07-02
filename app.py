@@ -3,12 +3,11 @@ app.py is the main file which is run. Contains the routes responsible
 for allowing user to navigate through the website. 
 """
 
-from email.mime import image
-from flask import flash, jsonify, redirect, request, render_template
+from flask import jsonify, redirect, request, render_template
 from flask_talisman import Talisman
-from app_config import app, AUTHOR_ID, react, port
+from app_config import app, AUTHOR_ID, port
 from google_login import google_login
-from database import db, User, Article, Like, num_of_likes
+from database import db, User, Article, Like
 
 from flask_login import (
     LoginManager,
@@ -47,55 +46,7 @@ def logout():
     and returns to the home page.
     """
     logout_user()
-    flash("Logged out!")
     return redirect("/")
-
-
-@app.route("/home")
-def main():
-    return render_template("home.html", AUTHOR_ID=AUTHOR_ID)
-
-
-@app.route("/computer_articles")
-def computer_articles():
-    articles = (
-        Article.query.filter_by(author_id=AUTHOR_ID)
-        .filter_by(topic="Computers")
-        .order_by(Article.id.desc())
-        .all()
-    )
-    return render_template(
-        "blog.html", topic="Computer", articles=articles, num_of_likes=num_of_likes()
-    )
-
-
-@app.route("/cybersecurity_articles")
-def cybersecurity_articles():
-    articles = (
-        Article.query.filter_by(author_id=AUTHOR_ID)
-        .filter_by(topic="Cybersecurity")
-        .order_by(Article.id.desc())
-        .all()
-    )
-    return render_template("blog.html", topic="Cybersecurity", articles=articles)
-
-
-@app.route("/politics_articles")
-def politics_articles():
-    articles = (
-        Article.query.filter_by(author_id=AUTHOR_ID)
-        .filter_by(topic="Politics")
-        .order_by(Article.id.desc())
-        .all()
-    )
-    return render_template("blog.html", topic="Politics", articles=articles)
-
-
-@app.route("/view_article", methods=["GET"])
-def view_article():
-    article_id = request.args.get("id")
-    article = Article.query.get(article_id)
-    return render_template("article.html", article=article)
 
 
 # React routes for react backend and routing to the react page below
@@ -141,37 +92,6 @@ def get_articles():
     )
 
 
-@app.route("/get_article")
-def get_article():
-    post_id = request.json
-    my_articles = Article.query.filter_by(author_id=AUTHOR_ID, id=post_id).all()
-    return jsonify(
-        [
-            {
-                "id": article.id,
-                "title": article.title,
-                "subtitle": article.subtitle,
-                "topic": article.topic,
-                "image": article.image,
-                "author": article.author,
-                "date": article.date,
-                "article": article.article,
-                "likes": db.session.query(Like)
-                .filter(Like.article_id == Article.id)
-                .count(),
-            }
-            for article in my_articles
-        ]
-    )
-
-
-@app.route("/article", methods=["GET"])
-def article():
-    article_id = request.json
-    article = Article.query.get(article_id)
-    return render_template("article.html", article=article)
-
-
 @app.route("/add_article", methods=["POST"])
 def add_title():
     article = request.json
@@ -215,9 +135,9 @@ def save_articles():
     return jsonify("Article changes saved")
 
 
-@react.route("/")
+@app.route("/")
 # @login_required
-def manage_articles():
+def index():
     """
     Routes to react page for creating articles.
     Only the creator's account can access.
@@ -225,7 +145,7 @@ def manage_articles():
     return render_template("index.html")
 
 
-@react.route("/blog")
+@app.route("/Blog")
 # @login_required
 def blog():
     """
@@ -234,7 +154,16 @@ def blog():
     return render_template("Blog.html")
 
 
-@react.route("/AddArticle")
+@app.route("/<id>")
+# @login_required
+def post(id):
+    """
+    Post
+    """
+    return render_template("[id].html")
+
+
+@app.route("/AddArticle")
 @login_required
 def add_article_react():
     """
@@ -243,7 +172,7 @@ def add_article_react():
     return render_template("AddArticle.html")
 
 
-@react.route("/EditArticles")
+@app.route("/EditArticles")
 @login_required
 def edit_article_react():
     """
@@ -252,7 +181,7 @@ def edit_article_react():
     return render_template("EditArticles.html")
 
 
-app.register_blueprint(react)
+# app.register_blueprint(react)
 app.register_blueprint(google_login)
 
 # Local deployment:
