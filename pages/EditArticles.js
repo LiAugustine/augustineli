@@ -94,6 +94,8 @@ const EditArticles = () => {
                     <Input id='iamge' defaultValue={article.image} onChange={(e) => handleImageEdit(i, e)} />
                 </FormControl>
 
+                <Button colorScheme='red' onClick={() => handleDelete(i)}>Delete Article</Button>
+
                 <Text>Article Text:</Text>
                 <Editor onChange={(e) => handleArticleEdit(i, e)}
                     apiKey={process.env.NEXT_PUBLIC_TINY_MCE}
