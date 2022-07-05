@@ -57,6 +57,7 @@ def get_user():
     if current_user.is_authenticated:
         return jsonify(
             {
+                "id": current_user.account_id,
                 "name": current_user.name,
                 "picture": current_user.picture,
             }
@@ -84,12 +85,46 @@ def get_articles():
                 "date": article.date,
                 "article": article.article,
                 "likes": db.session.query(Like)
-                .filter(Like.article_id == Article.id)
+                .filter(Like.article_id == article.id)
                 .count(),
+                "userLiked": [likes_query(article.id)],
             }
             for article in my_articles
         ]
     )
+
+
+def likes_query(article_id):
+    article_likes = Like.query.filter_by(article_id=article_id).all()
+    if current_user.is_authenticated:
+        for Liker in article_likes:
+            if Liker.rater_id == current_user.account_id:
+                return True
+    return False
+
+
+@app.route("/like_article", methods=["POST"])
+@login_required
+def like_article():
+    data = request.json
+    rater_id = current_user.account_id
+    article_id = data
+    new_like = Like(rater_id=rater_id, article_id=article_id)
+    db.session.add(new_like)
+    db.session.commit()
+    return jsonify("Liked!")
+
+
+@app.route("/unlike_article", methods=["POST"])
+@login_required
+def unlike_article():
+    data = request.json
+    rater_id = current_user.account_id
+    article_id = data
+    unlike = Like.query.filter_by(rater_id=rater_id, article_id=article_id).first()
+    db.session.delete(unlike)
+    db.session.commit()
+    return jsonify("Unliked!")
 
 
 @app.route("/add_article", methods=["POST"])
@@ -181,7 +216,6 @@ def edit_article_react():
     return render_template("EditArticles.html")
 
 
-# app.register_blueprint(react)
 app.register_blueprint(google_login)
 
 # Local deployment:

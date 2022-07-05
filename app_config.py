@@ -29,12 +29,4 @@ app.config["SECRET_KEY"] = SECRET_KEY
 
 environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # set environment to HTTPS
 
-# Blueprint for routing to React page
-react = Blueprint(
-    "react",
-    __name__,
-    static_folder="out/_next",
-    template_folder="out",
-)
-
 port = int(getenv("PORT", 8080))

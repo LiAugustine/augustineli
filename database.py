@@ -50,19 +50,4 @@ class Like(db.Model, UserMixin):
     article_id = db.Column(db.Integer, ForeignKey("Articles.id"))
 
 
-def num_of_likes():
-    rows = db.session.query(Like).count()
-    return rows
-
-
-def like_article(rater_id, article_id):
-    db.session.add(rater_id, article_id)
-    db.session.commit()
-
-
-def unlike_article(rater_id, article_id):
-    db.session.add(rater_id, article_id)
-    db.session.commit()
-
-
 db.create_all()
