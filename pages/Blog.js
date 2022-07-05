@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { Text, Box, Badge, Link, Center, Image, IconButton } from '@chakra-ui/react'
-import { StarIcon } from '@chakra-ui/icons'
+import { Box, Badge, Link, Center, Image } from '@chakra-ui/react';
 import Navbar from "./Navbar";
+import LikeButton from "./components/Like";
 
 function Blog() {
     const [articles, setArticles] = useState([])
-    const [user, setUser] = useState(false)
+
     const router = useRouter()
+
 
     useEffect(() => {
         fetch('/get_articles', {
@@ -21,44 +22,6 @@ function Blog() {
             });
     }, []);
 
-    useEffect(() => {
-        fetch('/get_user', {
-            method: "GET",
-            headers: {
-                "content_type": "application/json",
-            },
-        }).then(response => response.json())
-            .then(data => {
-                setUser(data);
-            });
-    }, []);
-
-    function onClickLike(article_id) {
-        fetch('/like_article', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(article_id),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                alert(data);
-            });
-    }
-    function onClickUnlike(article_id) {
-        fetch('/unlike_article', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(article_id),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                alert(data);
-            });
-    }
 
     return (
         <div>
@@ -114,36 +77,11 @@ function Blog() {
                                 <Box as='span' color='gray.600' fontSize='sm'>
                                 </Box>
                             </Box>
-                            {article.userLiked == 'true' ?
-                                (
-
-                                    <Box display='flex' mt='2' alignItems='center'>
-                                        <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-                                            <IconButton
-                                                aria-label='Liked'
-                                                colorScheme='yellow'
-                                                size='sm'
-                                                icon={<StarIcon />}
-                                                onClick={() => onClickUnlike(article.id)}
-                                            />
-                                            {article.likes} likes
-                                        </Box>
-                                    </Box>
-                                ) : (
-                                    <Box display='flex' mt='2' alignItems='center'>
-                                        <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-                                            <IconButton
-                                                aria-label='Like'
-                                                variant='ghost'
-                                                colorScheme='yellow'
-                                                size='sm'
-                                                icon={<StarIcon />}
-                                                onClick={() => onClickLike(article.id)}
-                                            />
-                                            {article.likes} likes
-                                        </Box>
-                                    </Box>
-                                )}
+                            <Box display='flex' mt='2' alignItems='center'>
+                                <Box as='span' ml='2' color='gray.600' fontSize='sm'>
+                                    <LikeButton article_id={article.id} likes={article.likes} liked={article.userLiked} />
+                                </Box>
+                            </Box>
 
                         </Box>
                     </Box>
@@ -153,5 +91,6 @@ function Blog() {
         </div >
     )
 }
+
 
 export default Blog;
