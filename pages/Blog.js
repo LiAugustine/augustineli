@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { Box, Badge, Link, Center, Image } from '@chakra-ui/react';
+import { Heading, Box, Text, Badge, Link, Center, Image } from '@chakra-ui/react';
 import Navbar from "./Navbar";
 import LikeButton from "./components/Like";
 
@@ -26,6 +26,19 @@ function Blog() {
     return (
         <div>
             <Navbar />
+            <Center>
+                <Box maxW='36rem'>
+                    <Center>
+                        <Heading as='h3' mb={3}>Blog</Heading>
+                    </Center>
+                    <Center>
+                        <Text fontSize='xl'>
+                            Blog posts on a variety of topics.
+                        </Text>
+                    </Center>
+                </Box>
+            </Center>
+
             {articles.map((article) =>
                 < Center h='170px' >
                     <Box maxW='md' borderWidth='1px' borderRadius='lg' overflow='hidden'>

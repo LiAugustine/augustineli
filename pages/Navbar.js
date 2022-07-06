@@ -4,7 +4,9 @@ import {
     Avatar, Wrap, WrapItem,
     Popover, PopoverTrigger, Portal, PopoverContent, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody,
     Box, Heading, Flex, Button, ButtonGroup, Spacer,
+    Center
 } from '@chakra-ui/react'
+import { FcGoogle } from "react-icons/fc";
 
 const Navbar = () => {
     const router = useRouter()
@@ -25,73 +27,75 @@ const Navbar = () => {
 
     return (
         <div className="Navbar">
-            <Flex minWidth='max-content' alignItems='center' gap='2'>
-                <Box p='3'>
-                    <Heading size='md'>Augustine Li</Heading>
-                </Box>
-                <ButtonGroup>
-                    <Button variant='ghost' onClick={() => router.push('/')}>Home</Button>
-                    <Button variant='ghost' onClick={() => router.push('/Blog')}>Blog</Button>
-                    <a href="https://docs.google.com/document/d/1WuDqJs1mmAWxWuJoka2puwaelpOe7kVK7aL1_5aM8Y8/edit?usp=sharing" target="_blank">
-                        <Button variant='ghost'>
-                            Resume
-                        </Button>
-                    </a>
-                </ButtonGroup>
-                <Spacer />
-
-                {loggedIn ? (
-                    <Popover>
-                        <PopoverTrigger>
-                            <Button>
-                                <Wrap>
-                                    <WrapItem>
-                                        <Avatar size='sm' src={loggedIn.picture} />
-                                    </WrapItem>
-                                </Wrap>
-                                {loggedIn.name}
+            <Center h='80px'>
+                <Flex minWidth='max-content' alignItems='center' gap='2'>
+                    <Box p='3'>
+                        <Heading size='md'>Augustine Li</Heading>
+                    </Box>
+                    <ButtonGroup>
+                        <Button variant='ghost' onClick={() => router.push('/')}>Home</Button>
+                        <Button variant='ghost' onClick={() => router.push('/Blog')}>Blog</Button>
+                        <a href="https://docs.google.com/document/d/1WuDqJs1mmAWxWuJoka2puwaelpOe7kVK7aL1_5aM8Y8/edit?usp=sharing" target="_blank">
+                            <Button variant='ghost'>
+                                Resume
                             </Button>
-                        </PopoverTrigger>
-                        <Portal>
-                            <PopoverContent>
-                                <PopoverArrow />
-                                <PopoverHeader>Account Options</PopoverHeader>
-                                <PopoverCloseButton />
-                                <PopoverBody>
-                                    <a href='/logout'>
-                                        <Button colorScheme='red' size='md'>
-                                            Sign-out
-                                        </Button>
-                                    </a>
-                                </PopoverBody>
+                        </a>
+                    </ButtonGroup>
+                    <Spacer />
 
-                            </PopoverContent>
-                        </Portal>
-                    </Popover>
-                ) : (
-                    <Popover>
-                        <PopoverTrigger>
-                            <Button colorScheme='green' size='md'>Sign-in</Button>
-                        </PopoverTrigger>
-                        <Portal>
-                            <PopoverContent>
-                                <PopoverArrow />
-                                <PopoverHeader>Sign-in Options</PopoverHeader>
-                                <PopoverCloseButton />
-                                <PopoverBody>
-                                    <a href='/login'>
-                                        <Button colorScheme='green' size='md'>
-                                            Sign-in with Google
-                                        </Button>
-                                    </a>
-                                </PopoverBody>
+                    {loggedIn ? (
+                        <Popover>
+                            <PopoverTrigger>
+                                <Button>
+                                    <Wrap>
+                                        <WrapItem>
+                                            <Avatar size='sm' src={loggedIn.picture} />
+                                        </WrapItem>
+                                    </Wrap>
+                                    {loggedIn.name}
+                                </Button>
+                            </PopoverTrigger>
+                            <Portal>
+                                <PopoverContent>
+                                    <PopoverArrow />
+                                    <PopoverHeader>Account Options</PopoverHeader>
+                                    <PopoverCloseButton />
+                                    <PopoverBody>
+                                        <a href='/logout'>
+                                            <Button colorScheme='red' size='md'>
+                                                Sign-out
+                                            </Button>
+                                        </a>
+                                    </PopoverBody>
 
-                            </PopoverContent>
-                        </Portal>
-                    </Popover>
-                )}
+                                </PopoverContent>
+                            </Portal>
+                        </Popover>
+                    ) : (
+                        <Popover>
+                            <PopoverTrigger>
+                                <Button colorScheme='green' size='md'>Sign-in</Button>
+                            </PopoverTrigger>
+                            <Portal>
+                                <PopoverContent>
+                                    <PopoverArrow />
+                                    <PopoverHeader>Sign-in Options</PopoverHeader>
+                                    <PopoverCloseButton />
+                                    <PopoverBody>
+                                        <a href='/login'>
+                                            <Button colorScheme='gray' color='black' size='md'>
+                                                <FcGoogle /> Sign-in with Google
+                                            </Button>
+                                        </a>
+                                    </PopoverBody>
 
-            </Flex>
+                                </PopoverContent>
+                            </Portal>
+                        </Popover>
+                    )}
+
+                </Flex>
+            </Center>
         </div>
     )
 }
