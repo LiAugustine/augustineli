@@ -151,6 +151,7 @@ def save_articles():
     old_articles = Article.query.filter_by(author_id=current_user.account_id).all()
     new_articles = [
         Article(
+            id=article["id"],
             title=article["title"],
             subtitle=article["subtitle"],
             topic=article["topic"],
@@ -162,6 +163,7 @@ def save_articles():
         )
         for article in data
     ]
+
     for article in old_articles:
         db.session.delete(article)
     for article in new_articles:

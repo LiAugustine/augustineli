@@ -28,7 +28,7 @@ const Navbar = () => {
     return (
         <div className="Navbar">
             <Center h='80px'>
-                <Flex minWidth='max-content' alignItems='center' gap='2'>
+                <Flex minWidth='max-content' alignItems='center' gap='3'>
                     <Box p='3'>
                         <Heading size='md'>Augustine Li</Heading>
                     </Box>
