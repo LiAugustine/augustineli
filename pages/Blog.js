@@ -71,14 +71,14 @@ function Blog() {
                                     pathname: "/" + article.id,
                                     query: {
                                         id: article.id,
-                                        title: article.title,
-                                        subtitle: article.subtitle,
-                                        topic: article.topic,
-                                        image: article.image,
-                                        author: article.author,
-                                        date: article.date,
-                                        article: article.article,
-                                        likes: article.likes,
+                                        //title: article.title,
+                                        //subtitle: article.subtitle,
+                                        //topic: article.topic,
+                                        //image: article.image,
+                                        //author: article.author,
+                                        //date: article.date,
+                                        //article: article.article,
+                                        //likes: article.likes,
                                     }
                                 }, "/" + article.id)}>
                                     {article.title}

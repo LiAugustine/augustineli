@@ -183,7 +183,7 @@ def index():
 
 
 @app.route("/Blog")
-# @login_required
+@login_required
 def blog():
     """
     Blog
@@ -198,6 +198,27 @@ def post(id):
     Post
     """
     return render_template("[id].html")
+
+
+@app.route("/fetch_post", methods=["POST"])
+def fetch_post():
+    id = request.json
+    post = Article.query.filter_by(id=id).first()
+
+    return jsonify(
+        {
+            "id": post.id,
+            "title": post.title,
+            "subtitle": post.subtitle,
+            "topic": post.topic,
+            "image": post.image,
+            "author": post.author,
+            "date": post.date,
+            "article": post.article,
+            "likes": db.session.query(Like).filter(Like.article_id == id).count(),
+            "userLiked": [likes_query(id)],
+        }
+    )
 
 
 @app.route("/AddArticle")
