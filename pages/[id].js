@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter, NextRouter } from 'next/router';
-import sanitizeHtml from 'sanitize-html';
+import { useRouter } from 'next/router';
 import parse from 'html-react-parser';
 import { Center, Text, Heading } from '@chakra-ui/react'
 import Navbar from "./Navbar";

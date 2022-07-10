@@ -18,14 +18,6 @@ class User(db.Model, UserMixin):
     account_id = db.Column(db.String(100), unique=True, nullable=False)
     google_id = db.Column(db.String(100), unique=True, nullable=True)
 
-    def already_liked(self, article):
-        return (
-            Like.query.filter(
-                Like.rater_id == self.account_id, Like.article_id == article.id
-            ).count()
-            > 0
-        )
-
 
 class Article(db.Model, UserMixin):
     __tablename__ = "Articles"
