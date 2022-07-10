@@ -1,6 +1,7 @@
 Flask
 flask-login
 flask-talisman
+flask-seasurf
 Flask-SQLAlchemy
 oauthlib
 requests
