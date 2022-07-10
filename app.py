@@ -280,4 +280,5 @@ app.register_blueprint(google_login)
 # Heroku deployment:
 
 if __name__ == "__main__":
+    Talisman(app, content_security_policy=None)
     app.run(host="0.0.0.0", port=port)
