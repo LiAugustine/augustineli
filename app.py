@@ -275,7 +275,7 @@ app.register_blueprint(google_login)
 
 # Heroku deployment:
 Talisman(app)  # Security headers for app
-csrf = SeaSurf(app)  # cross-site request forgery protection
+# csrf = SeaSurf(app)  # cross-site request forgery protection
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port)
