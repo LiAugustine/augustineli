@@ -5,6 +5,7 @@ the environmental variables. Provides modular access for other files.
 from os import getenv, environ
 from flask import Flask, Blueprint
 from dotenv import find_dotenv, load_dotenv
+from flask_seasurf import SeaSurf
 
 load_dotenv(find_dotenv())
 
@@ -28,5 +29,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = SECRET_KEY
 
 environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # set environment to HTTPS
+
+csrf = SeaSurf(app)
 
 port = int(getenv("PORT", 8080))
