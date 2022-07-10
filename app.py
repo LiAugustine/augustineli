@@ -5,6 +5,7 @@ for allowing user to navigate through the website.
 
 from flask import jsonify, redirect, request, render_template
 from flask_talisman import Talisman
+from flask_seasurf import SeaSurf
 from app_config import app, AUTHOR_ID, port
 from google_login import google_login
 from database import db, User, Article, Like
@@ -25,9 +26,9 @@ login_manager.login_view = "login"
 def unauthorized():
     """
     Message is displayed when a page requires logging in
-    to access.
+    to access, json format.
     """
-    return "You must be logged in to access this content.", 403
+    return jsonify("You must be logged in to perform this action!")
 
 
 @login_manager.user_loader
@@ -146,6 +147,7 @@ def unlike_article():
 
 
 @app.route("/add_article", methods=["POST"])
+@login_required
 def add_article():
     """
     Function for adding an article. Gets info from frontend and
@@ -168,6 +170,7 @@ def add_article():
 
 
 @app.route("/save_articles", methods=["POST"])
+@login_required
 def save_articles():
     """
     Function for saving edited/deleted articles.
@@ -250,7 +253,7 @@ def fetch_post():
 @login_required
 def add_article_react():
     """
-    Route to properly register AddArticle.js
+    Add article page. Not available to the end user.
     """
     return render_template("AddArticle.html")
 
@@ -259,7 +262,7 @@ def add_article_react():
 @login_required
 def edit_article_react():
     """
-    Route to properly register EditArticles.js
+    Edit article page. Not available to the end user.
     """
     return render_template("EditArticles.html")
 
@@ -271,6 +274,8 @@ app.register_blueprint(google_login)
 #     app.run()
 
 # Heroku deployment:
-Talisman(app, content_security_policy=None)  # Security headers for app
+Talisman(app)  # Security headers for app
+csrf = SeaSurf(app)  # cross-site request forgery protection
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port)

@@ -1,29 +1,31 @@
-import {
-  Box, Grid, Center, Heading, Text,
-  Image
-} from '@chakra-ui/react'
+import { Box, Grid, Center, Heading, Text } from '@chakra-ui/react'
+import Image from 'next/image'
+import Flask from '../public/flask.png'
+import rctPic from '../public/react.png'
+import Chakra from '../public/chakra.png'
+import Heroku from '../public/heroku.png'
+
 import Navbar from "./Navbar";
 
 const flaskCard = {
-  img: 'https://cdn.icon-icons.com/icons2/2699/PNG/512/pocoo_flask_logo_icon_168045.png',
+  img: '/flask.png',
   title: 'Flask',
   text: 'Backend Flask with SQLAlchemy for handling database and feeding the frontend.',
 }
 
 const reactCard = {
-  img: 'https://blog.wildix.com/wp-content/uploads/2020/06/react-logo.jpg',
   title: 'React',
   text: 'Frontend solution with static HTML export, NextJS framework.',
 }
 
 const chakraCard = {
-  img: 'https://miro.medium.com/max/800/1*q0emKRBNI0Sv_NseTYRDwg.png',
+  img: '/chakra.png',
   title: 'Chakra UI',
   text: 'Styling solution for React.',
 }
 
 const herokuCard = {
-  img: 'https://seekvectorlogo.net/wp-content/uploads/2018/12/heroku-vector-logo.png',
+  img: '/heroku.png',
   title: 'Heroku',
   text: 'Website deployment and hosting.',
 }
@@ -54,7 +56,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={flaskCard.img} />
+                  <Image src={Flask} />
                 </Box>
               </Center>
 
@@ -78,7 +80,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={reactCard.img} />
+                  <Image src={rctPic} />
                 </Box>
               </Center>
 
@@ -102,7 +104,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={chakraCard.img} />
+                  <Image src={Chakra} height={250} />
                 </Box>
               </Center>
 
@@ -126,7 +128,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={herokuCard.img} />
+                  <Image src={Heroku} />
                 </Box>
               </Center>
 
