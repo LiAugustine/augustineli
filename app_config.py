@@ -3,9 +3,10 @@ app_config.py initializes and configures the flask app and imports
 the environmental variables. Provides modular access for other files.
 """
 from os import getenv, environ
-from flask import Flask, Blueprint
-from dotenv import find_dotenv, load_dotenv
+from flask import Flask
 from flask_seasurf import SeaSurf
+from dotenv import find_dotenv, load_dotenv
+
 
 load_dotenv(find_dotenv())
 

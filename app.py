@@ -273,12 +273,24 @@ def edit_article_react():
 
 app.register_blueprint(google_login)
 
+csp = {  # content security policy
+    "font-src": "'self' themes.googleusercontent.com *.gstatic.com",
+    "frame-src": "'self' www.google.com www.youtube.com",
+    "script-src": "'self' ajax.googleapis.com *.googleanalytics.com *.google-analytics.com",
+    "style-src": "'self' 'unsafe-inline' ajax.googleapis.com fonts.googleapis.com *.gstatic.com",
+    "object-src": "'none'",
+    "default-src": "'self' *.gstatic.com",
+    "img-src": " 'self' *.googleusercontent.com data:",
+}
+
 # Local deployment:
+
 # if __name__ == "__main__":
+#     Talisman(app, force_https=False, content_security_policy=csp)
 #     app.run()
 
 # Heroku deployment:
 
 if __name__ == "__main__":
-    Talisman(app, content_security_policy=None)
+    Talisman(app, content_security_policy=csp)
     app.run(host="0.0.0.0", port=port)
