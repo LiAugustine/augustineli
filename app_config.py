@@ -31,6 +31,6 @@ app.config["SECRET_KEY"] = SECRET_KEY
 
 environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # set environment to HTTPS
 
-csrf = SeaSurf(app)
+csrf = SeaSurf(app)  # cross-site request forgery protection with flask-seasurf
 
 port = int(getenv("PORT", 8080))

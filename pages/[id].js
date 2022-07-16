@@ -25,21 +25,17 @@ const Post = () => {
         if (!id) {
             return;
         }
-        const fetchSomethingById = async () => {
-            const response = await fetch('/fetch_post', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(id),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    setPost(data);
-                });
-
-        }
-        fetchSomethingById()
+        fetch('/fetch_post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(id),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setPost(data);
+            });
     }, [id]);
 
 

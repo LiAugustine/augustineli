@@ -1,7 +1,0 @@
-@import "node_modules/bootstrap-icons/font/bootstrap-icons.css";
-
-
-/* Makes sure that modal backdrop does not cover the entire page. */
-body.modal-open div.modal-backdrop {
-    z-index: 0;
-}

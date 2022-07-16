@@ -235,7 +235,10 @@ def fetch_post():
     Fetches post from a dynamic route
     """
     id = request.json
-    post = Article.query.filter_by(id=id).first()
+    try:
+        post = Article.query.filter_by(id=id).first()
+    except:
+        return ""
 
     return jsonify(
         {
