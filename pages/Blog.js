@@ -40,7 +40,7 @@ function Blog() {
             </Center>
 
             {articles.map((article) =>
-                < Center h='170px' >
+                < Center h='170px' key={article.id} >
                     <Box maxW='md' borderWidth='1px' borderRadius='lg' overflow='hidden'>
                         <Image src={article.image} />
                         <Box p='6'>

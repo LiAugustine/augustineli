@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import {
     Avatar, Wrap, WrapItem,
     Popover, PopoverTrigger, Portal, PopoverContent, PopoverArrow, PopoverHeader, PopoverCloseButton, PopoverBody,
@@ -35,11 +36,6 @@ const Navbar = () => {
                     <ButtonGroup>
                         <Button variant='ghost' onClick={() => router.push('/')}>Home</Button>
                         <Button variant='ghost' onClick={() => router.push('/Blog')}>Blog</Button>
-                        <a href="https://docs.google.com/document/d/1WuDqJs1mmAWxWuJoka2puwaelpOe7kVK7aL1_5aM8Y8/edit?usp=sharing" target="_blank">
-                            <Button variant='ghost'>
-                                Resume
-                            </Button>
-                        </a>
                     </ButtonGroup>
                     <Spacer />
 
@@ -61,11 +57,11 @@ const Navbar = () => {
                                     <PopoverHeader>Account Options</PopoverHeader>
                                     <PopoverCloseButton />
                                     <PopoverBody>
-                                        <a href='/logout'>
+                                        <Link href='/logout'>
                                             <Button colorScheme='red' size='md'>
                                                 Sign-out
                                             </Button>
-                                        </a>
+                                        </Link>
                                     </PopoverBody>
 
                                 </PopoverContent>
@@ -82,11 +78,11 @@ const Navbar = () => {
                                     <PopoverHeader>Sign-in Options</PopoverHeader>
                                     <PopoverCloseButton />
                                     <PopoverBody>
-                                        <a href='/login'>
+                                        <Link href='/login'>
                                             <Button colorScheme='gray' color='black' size='md'>
                                                 <FcGoogle /> Sign-in with Google
                                             </Button>
-                                        </a>
+                                        </Link>
                                     </PopoverBody>
 
                                 </PopoverContent>

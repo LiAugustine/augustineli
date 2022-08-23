@@ -10,12 +10,12 @@ import Navbar from "./Navbar";
 const flaskCard = {
   img: '/flask.png',
   title: 'Flask',
-  text: 'Backend Flask with SQLAlchemy for handling database and feeding the frontend.',
+  text: 'Backend Flask with SQLAlchemy ORM.',
 }
 
 const reactCard = {
   title: 'React',
-  text: 'Frontend solution with static HTML export, NextJS framework.',
+  text: 'React Frontend using the NextJS Framework.',
 }
 
 const chakraCard = {
