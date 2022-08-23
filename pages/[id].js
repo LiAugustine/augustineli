@@ -1,30 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import Head from 'next/head'
-import { useRouter } from 'next/router';
-import parse from 'html-react-parser';
+import { useRouter } from 'next/router'
+import parse from 'html-react-parser'
 import { Center, Text, Heading } from '@chakra-ui/react'
-import Navbar from "./Navbar";
+import Navbar from "./Navbar"
 
 
 const Post = () => {
 
     const router = useRouter()
-    const id = {}
+
     console.log(router)
     //console.log(router.asPath.slice(1))
-
-    useEffect(() => {
-        if (router.isReady) {
-            id = router.asPath.slice(1)
-        }
-    }, [router.isReady]);
-
 
     const [post, setPost] = useState([])
 
     useEffect(() => {
-        if (!id) {
-            return;
+        const id = {}
+        if (router.isReady) {
+            id = router.asPath.slice(1)
         }
         fetch('/fetch_post', {
             method: 'POST',
@@ -37,8 +31,7 @@ const Post = () => {
             .then((data) => {
                 setPost(data);
             });
-    }, [id]);
-
+    }, [router.isReady, router.asPath]);
 
     return (
         <div>

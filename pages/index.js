@@ -62,7 +62,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={Flask} />
+                  <Image src={Flask} alt="Flask" />
                 </Box>
               </Center>
 
@@ -86,7 +86,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={rctPic} />
+                  <Image src={rctPic} alt="React" />
                 </Box>
               </Center>
 
@@ -110,7 +110,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={Chakra} height={250} />
+                  <Image src={Chakra} alt="Chakra UI" height={250} />
                 </Box>
               </Center>
 
@@ -134,7 +134,7 @@ const Home = () => {
             <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
               <Center>
                 <Box w='sm' h='200px'>
-                  <Image src={Heroku} />
+                  <Image src={Heroku} alt="Heroku" />
                 </Box>
               </Center>
 

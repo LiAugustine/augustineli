@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BsHeartFill, BsHeart } from "react-icons/bs";
+import React, { useState } from 'react'
+import { BsHeartFill, BsHeart } from "react-icons/bs"
 
 
 const LikeButton = (props) => {
@@ -50,12 +50,12 @@ const LikeButton = (props) => {
         <div>
             {liked == 'true' ? (
                 <button onClick={() => handleClick(id, liked)}>
-                    <span> <BsHeartFill /> {likes}</span>
+                    <BsHeartFill />{likes}
                 </button>
             ) : (
 
                 <button onClick={() => handleClick(id, liked)}>
-                    <span> <BsHeart /> {likes}</span>
+                    <BsHeart />{likes}
                 </button>
             )
             }

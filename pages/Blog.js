@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import { useState, useEffect } from "react"
+import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { Heading, Box, Text, Badge, Link, Center, Image } from '@chakra-ui/react';
-import Navbar from "./Navbar";
-import LikeButton from "./components/Like";
+import { Heading, Box, Text, Badge, Link, Center, Image } from '@chakra-ui/react'
+import Navbar from "./Navbar"
+import LikeButton from "./components/Like"
 
 function Blog() {
     const [articles, setArticles] = useState([])
@@ -47,7 +47,7 @@ function Blog() {
             {articles.map((article) =>
                 < Center h='170px' key={article.id} >
                     <Box maxW='md' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-                        <Image src={article.image} />
+                        <Image src={article.image} alt="" />
                         <Box p='6'>
                             <Box display='flex' alignItems='baseline'>
                                 <Badge borderRadius='full' px='2' colorScheme='teal'>
@@ -91,10 +91,11 @@ function Blog() {
                             </Box>
 
                             <Box>
-                                {article.subtitle}
-                                <Box as='span' color='gray.600' fontSize='sm'>
+                                <Box as='span' color='gray.500' fontSize='sm' fontWeight='semibold'>
+                                    {article.subtitle}
                                 </Box>
                             </Box>
+
                             <Box display='flex' mt='2' alignItems='center'>
                                 <Box as='span' ml='2' color='gray.600' fontSize='sm'>
                                     <LikeButton article_id={article.id} likes={article.likes} liked={article.userLiked} />

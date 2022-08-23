@@ -296,12 +296,12 @@ csp = {  # content security policy
 
 # Local deployment:
 
-# if __name__ == "__main__":
-#     Talisman(app, force_https=False, content_security_policy=csp)
-#     app.run()
+if __name__ == "__main__":
+    Talisman(app, force_https=False, content_security_policy=csp)
+    app.run()
 
 # Heroku deployment:
 
-if __name__ == "__main__":
-    Talisman(app, content_security_policy=csp)
-    app.run(host="0.0.0.0", port=port)
+# if __name__ == "__main__":
+#     Talisman(app, content_security_policy=csp)
+#     app.run(host="0.0.0.0", port=port)
