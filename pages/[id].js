@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Head from 'next/head'
 import { useRouter } from 'next/router';
 import parse from 'html-react-parser';
 import { Center, Text, Heading } from '@chakra-ui/react'
@@ -42,6 +43,10 @@ const Post = () => {
     return (
         <div>
             <Navbar />
+            <Head>
+                <title>{post.title}</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Center>
                 <Heading as='h3' size='xl'>{post.title}</Heading>
             </Center>

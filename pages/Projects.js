@@ -1,13 +1,17 @@
+import Head from 'next/head'
 import { Box, Grid, Center, Heading, Text } from '@chakra-ui/react'
 import { Link } from '@chakra-ui/react'
 import Navbar from "./Navbar"
 
 
-const Home = () => {
+const Projects = () => {
     return (
         <div>
             <Navbar />
-
+            <Head>
+                <title>Projects - Augustine Li</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Center>
                 <Box maxW='48rem'>
                     <Center>
@@ -94,4 +98,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default Projects;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
+import Head from 'next/head'
 import { Heading, Box, Text, Badge, Link, Center, Image } from '@chakra-ui/react';
 import Navbar from "./Navbar";
 import LikeButton from "./components/Like";
@@ -26,6 +27,10 @@ function Blog() {
     return (
         <div>
             <Navbar />
+            <Head>
+                <title>Blog - Augustine Li</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Center>
                 <Box maxW='36rem'>
                     <Center>

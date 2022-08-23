@@ -1,4 +1,5 @@
 import { Box, Grid, Center, Heading, Text } from '@chakra-ui/react'
+import Head from 'next/head'
 import Image from 'next/image'
 import Flask from '../public/flask.png'
 import rctPic from '../public/react.png'
@@ -31,9 +32,14 @@ const herokuCard = {
 }
 
 
+
 const Home = () => {
   return (
     <div>
+      <Head>
+        <title>Home - Augustine Li</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Navbar />
 
       <Center>
