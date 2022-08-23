@@ -220,6 +220,14 @@ def blog():
     return render_template("Blog.html")
 
 
+@app.route("/Projects")
+def projects():
+    """
+    Projects
+    """
+    return render_template("Projects.html")
+
+
 @app.route("/<id>")
 def post(id):
     """

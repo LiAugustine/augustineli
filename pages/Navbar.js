@@ -36,6 +36,7 @@ const Navbar = () => {
                     <ButtonGroup>
                         <Button variant='ghost' onClick={() => router.push('/')}>Home</Button>
                         <Button variant='ghost' onClick={() => router.push('/Blog')}>Blog</Button>
+                        <Button variant='ghost' onClick={() => router.push('/Projects')}>Projects</Button>
                     </ButtonGroup>
                     <Spacer />
 
@@ -57,11 +58,11 @@ const Navbar = () => {
                                     <PopoverHeader>Account Options</PopoverHeader>
                                     <PopoverCloseButton />
                                     <PopoverBody>
-                                        <Link href='/logout'>
+                                        <a href='/logout'>
                                             <Button colorScheme='red' size='md'>
                                                 Sign-out
                                             </Button>
-                                        </Link>
+                                        </a>
                                     </PopoverBody>
 
                                 </PopoverContent>
@@ -78,11 +79,11 @@ const Navbar = () => {
                                     <PopoverHeader>Sign-in Options</PopoverHeader>
                                     <PopoverCloseButton />
                                     <PopoverBody>
-                                        <Link href='/login'>
+                                        <a href='/login'>
                                             <Button colorScheme='gray' color='black' size='md'>
                                                 <FcGoogle /> Sign-in with Google
                                             </Button>
-                                        </Link>
+                                        </a>
                                     </PopoverBody>
 
                                 </PopoverContent>
