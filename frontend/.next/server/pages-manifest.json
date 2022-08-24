@@ -1,15 +1,15 @@
 {
   "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
   "/AddArticle": "pages/AddArticle.html",
   "/Blog": "pages/Blog.html",
   "/EditArticles": "pages/EditArticles.html",
-  "/_error": "pages/_error.js",
-  "/Projects": "pages/Projects.html",
   "/Navbar": "pages/Navbar.html",
+  "/Projects": "pages/Projects.html",
   "/[id]": "pages/[id].html",
   "/api/hello": "pages/api/hello.js",
-  "/": "pages/index.html",
   "/components/Like": "pages/components/Like.html",
   "/_document": "pages/_document.js",
+  "/": "pages/index.html",
   "/404": "pages/404.html"
 }
