@@ -19,7 +19,7 @@ node_modules/
 /coverage
 
 # production
-.*/
+.next/
 /build
 
 # misc
