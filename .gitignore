@@ -2,7 +2,6 @@
 .env.local
 __pycache__/
 
-.next/
 AddArticle.js
 EditArticles.js
 
@@ -20,7 +19,7 @@ node_modules/
 /coverage
 
 # production
-/.next/
+.next/
 /build
 
 # misc
