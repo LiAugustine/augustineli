@@ -2,15 +2,16 @@
 .env.local
 __pycache__/
 
-/pages/AddArticle.js
-/pages/EditArticles.js
+AddArticle.js
+EditArticles.js
 
-/out/AddArticle.html
-/out/EditArticles.html
+AddArticle.html
+EditArticles.html
 
+node_modules/
 
 # dependencies
-/node_modules
+
 /.pnp
 .pnp.js
 

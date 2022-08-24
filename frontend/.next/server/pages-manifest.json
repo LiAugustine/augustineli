@@ -1,0 +1,15 @@
+{
+  "/_app": "pages/_app.js",
+  "/AddArticle": "pages/AddArticle.html",
+  "/Blog": "pages/Blog.html",
+  "/EditArticles": "pages/EditArticles.html",
+  "/_error": "pages/_error.js",
+  "/Projects": "pages/Projects.html",
+  "/Navbar": "pages/Navbar.html",
+  "/[id]": "pages/[id].html",
+  "/api/hello": "pages/api/hello.js",
+  "/": "pages/index.html",
+  "/components/Like": "pages/components/Like.html",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}

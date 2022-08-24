@@ -1,0 +1,7 @@
+{
+  "rules": {
+    // Allow usage of <a> tag
+    "@next/next/no-html-link-for-pages": "off"
+  },
+  "extends": "next/core-web-vitals"
+}
