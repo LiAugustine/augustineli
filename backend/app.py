@@ -5,7 +5,7 @@ for allowing user to navigate through the website.
 
 from flask import jsonify, redirect, request, render_template
 from flask_talisman import Talisman
-from app_config import app, AUTHOR_ID, csrf, port
+from app_config import app, AUTHOR_ID, port
 from google_login import google_login
 from database import db, User, Article, Like
 
@@ -117,7 +117,6 @@ def likes_query(article_id):
 
 @app.route("/like_article", methods=["POST"])
 @login_required
-@csrf.exempt
 def like_article():
     """
     Retrieve which article a user liked from the frontend, update the database.
@@ -133,7 +132,6 @@ def like_article():
 
 @app.route("/unlike_article", methods=["POST"])
 @login_required
-@csrf.exempt
 def unlike_article():
     """
     Retrieve which article a user un-liked from the frontend, update the database.
@@ -149,7 +147,6 @@ def unlike_article():
 
 @app.route("/add_article", methods=["POST"])
 @login_required
-@csrf.exempt
 def add_article():
     """
     Function for adding an article. Gets info from frontend and
@@ -173,7 +170,6 @@ def add_article():
 
 @app.route("/save_articles", methods=["POST"])
 @login_required
-@csrf.exempt
 def save_articles():
     """
     Function for saving edited/deleted articles.
@@ -237,7 +233,6 @@ def post(id):
 
 
 @app.route("/fetch_post", methods=["POST"])
-@csrf.exempt
 def fetch_post():
     """
     Fetches post from a dynamic route
