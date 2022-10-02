@@ -91,6 +91,27 @@ const Projects = () => {
                             </Box>
                         </Box>
 
+                        <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                            <Box p='6'>
+                                <Box
+                                    mt='1'
+                                    fontWeight='semibold'
+                                    as='h4'
+                                    lineHeight='tight'
+                                    noOfLines={1}
+                                >
+                                    <Link href="https://github.com/LiAugustine/NewsBox">
+                                        NewsBox
+                                    </Link>
+
+                                </Box>
+                                News search and aggregation website using News API. Flask + React app
+                                deployed on AWS Elastic Beanstalk using a Docker container.
+                                <Box>
+                                </Box>
+                            </Box>
+                        </Box>
+
                     </Grid>
                 </Box>
             </Center>
