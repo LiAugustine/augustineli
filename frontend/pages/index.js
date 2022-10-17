@@ -1,12 +1,24 @@
-import { Box, Grid, Center, Heading, Text } from '@chakra-ui/react'
+import {
+  Box, SimpleGrid,
+  Grid, Center, Heading, Text, Divider,
+  List,
+  ListItem,
+  ListIcon,
+} from '@chakra-ui/react'
+import { CheckCircleIcon } from '@chakra-ui/icons'
 import Head from 'next/head'
 import Image from 'next/image'
+import GSU from '../public/gsu.jpg'
 import Flask from '../public/flask.png'
 import rctPic from '../public/react.png'
+import Java from '../public/java.png'
+import PSQL from '../public/psql.png'
+import Docker from '../public/docker.png'
 import Chakra from '../public/chakra.png'
 import Heroku from '../public/heroku.png'
 
 import Navbar from "./Navbar";
+
 
 const flaskCard = {
   img: '/flask.png',
@@ -42,123 +54,215 @@ const Home = () => {
       </Head>
       <Navbar />
 
+
+
       <Center>
-        <Box maxW='48rem'>
-          <Center>
-            <Heading as='h3' mb={3}>Augustine Li</Heading>
-          </Center>
-          <Center>
-            <Text fontSize='xl' mb={6}>
-              Welcome to my website!
-            </Text>
-          </Center>
-
-          <Center>
-            <Heading as='h5' mb={3}>Website Technologies</Heading>
-          </Center>
-
-          <Grid templateColumns='repeat(2, 1fr)' gap={6}>
-
-            <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-              <Center>
-                <Box w='sm' h='200px'>
-                  <Image src={Flask} alt="Flask" />
-                </Box>
-              </Center>
-
-              <Box p='6'>
-                <Box
-                  mt='1'
-                  fontWeight='semibold'
-                  as='h4'
-                  lineHeight='tight'
-                  noOfLines={1}
-                >
-                  {flaskCard.title}
-                </Box>
-
-                <Box>
-                  {flaskCard.text}
-                </Box>
-              </Box>
-            </Box>
-
-            <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-              <Center>
-                <Box w='sm' h='200px'>
-                  <Image src={rctPic} alt="React" />
-                </Box>
-              </Center>
-
-              <Box p='6'>
-                <Box
-                  mt='1'
-                  fontWeight='semibold'
-                  as='h4'
-                  lineHeight='tight'
-                  noOfLines={1}
-                >
-                  {reactCard.title}
-                </Box>
-
-                <Box>
-                  {reactCard.text}
-                </Box>
-              </Box>
-            </Box>
-
-            <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-              <Center>
-                <Box w='sm' h='200px'>
-                  <Image src={Chakra} alt="Chakra UI" height={250} />
-                </Box>
-              </Center>
-
-              <Box p='6'>
-                <Box
-                  mt='1'
-                  fontWeight='semibold'
-                  as='h4'
-                  lineHeight='tight'
-                  noOfLines={1}
-                >
-                  {chakraCard.title}
-                </Box>
-
-                <Box>
-                  {chakraCard.text}
-                </Box>
-              </Box>
-            </Box>
-
-            <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-              <Center>
-                <Box w='sm' h='200px'>
-                  <Image src={Heroku} alt="Heroku" />
-                </Box>
-              </Center>
-
-
-              <Box p='6'>
-                <Box
-                  mt='1'
-                  fontWeight='semibold'
-                  as='h4'
-                  lineHeight='tight'
-                  noOfLines={1}
-                >
-                  {herokuCard.title}
-                </Box>
-
-                <Box>
-                  {herokuCard.text}
-                </Box>
-              </Box>
-            </Box>
-          </Grid>
-        </Box>
+        <Heading as='h3' size='2xl' mb={3}>Augustine Li</Heading>
       </Center>
-    </div>
+
+      <Center>
+        <Text fontSize='xl' mb={3}>
+          Computer Science new graduate and aspiring software engineer.
+        </Text>
+
+      </Center>
+      <Center>
+        <Divider width="800px" />
+      </Center>
+
+
+
+
+      <br></br>
+
+      <Center>
+        <Heading as='h2' size='xl' mb={3}>Skills and Qualifications</Heading>
+      </Center>
+
+      <br></br>
+      <Center maxW='100%'>
+        <SimpleGrid columns={3} spacing={2}>
+
+          <Box maxW='xs' borderWidth='2px' borderRadius='md'>
+            <Center>
+              <Box w='sm' h='180px'>
+                <Image src={GSU} />
+              </Box>
+            </Center>
+
+            <Box p='2'>
+              <Center>
+                <Heading as='h3' size='lg'>Bachelors Degree</Heading>
+              </Center>
+              <List spacing={2}>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Completed B.S. in  Computer Science from Georgia State University
+                  (Graduated August 2022).
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  3.85 cumulative GPA.
+                </ListItem>
+              </List>
+
+            </Box>
+          </Box>
+
+          <Box maxW='xs' borderWidth='2px' borderRadius='md'>
+            <Center>
+              <Box w='sm' h='180px'>
+                <Image src={Flask} />
+              </Box>
+            </Center>
+
+            <Box p='2'>
+              <Center>
+                <Heading as='h3' size='lg'>Flask</Heading>
+              </Center>
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Created news aggregation website (NewsBox) with Flask backend.
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Flask backend used for this website.
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Worked on team project (MealDeck) with a Flask backend.
+                </ListItem>
+              </List>
+
+            </Box>
+          </Box>
+
+          <Box maxW='xs' borderWidth='2px' borderRadius='md'>
+            <Center>
+              <Box w='sm' h='180px'>
+                <Image src={rctPic} />
+              </Box>
+            </Center>
+
+            <Box p='2'>
+              <Center>
+                <Heading as='h3' size='lg'>React</Heading>
+              </Center>
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Created news aggregation website (NewsBox) with React frontend.
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  React (NextJS framework) used for this website.
+                </ListItem>
+
+              </List>
+
+            </Box>
+          </Box>
+
+          <Box maxW='xs' borderWidth='2px' borderRadius='md'>
+            <Center>
+              <Box w='sm' h='180px'>
+                <Image src={Java} />
+              </Box>
+            </Center>
+
+            <Box p='2'>
+              <Center>
+                <Heading as='h3' size='lg'>Java</Heading>
+              </Center>
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Java Project - Seed-based Deanonymization.
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Understanding of data structures and algorithms through relevant coursework.
+                </ListItem>
+
+              </List>
+
+            </Box>
+          </Box>
+
+          <Box maxW='xs' borderWidth='2px' borderRadius='md'>
+            <Center>
+              <Box w='sm' h='180px'>
+                <Image src={PSQL} />
+              </Box>
+            </Center>
+
+            <Box p='2'>
+              <Center>
+                <Heading as='h3' size='lg'>PostgreSQL</Heading>
+              </Center>
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Cloud PostgreSQL database used on this website.
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  Cloud PostgreSQL database used for MealDeck team project.
+                </ListItem>
+
+              </List>
+
+            </Box>
+          </Box>
+
+          <Box maxW='xs' borderWidth='2px' borderRadius='md'>
+            <Center>
+              <Box w='sm' h='180px'>
+                <Image src={Docker} />
+              </Box>
+            </Center>
+
+            <Box p='2'>
+              <Center>
+                <Heading as='h3' size='lg'>Docker</Heading>
+              </Center>
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  NewsBox web app docker container deployed.
+                </ListItem>
+              </List>
+
+            </Box>
+          </Box>
+
+          <Box maxW='xs' borderWidth='2px' borderRadius='md'>
+            <Center>
+              <Box w='sm' h='180px'>
+                <Image src={Chakra} height={250} />
+              </Box>
+            </Center>
+
+            <Box p='2'>
+              <Center>
+                <Heading as='h3' size='lg'>Chakra UI</Heading>
+              </Center>
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={CheckCircleIcon} color='green.500' />
+                  React UI library for styling. Used on NewsBox project and this page.
+                </ListItem>
+              </List>
+            </Box>
+          </Box>
+
+
+        </SimpleGrid>
+      </Center>
+
+
+    </div >
   )
 }
 

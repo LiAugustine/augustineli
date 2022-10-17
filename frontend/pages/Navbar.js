@@ -30,20 +30,20 @@ const Navbar = () => {
             <Center>
                 <Flex minWidth='max-content' alignItems='center' gap='2'>
                     <Box>
-                        <Heading size='md' as='span'>Augustine Li</Heading>
+                        <Heading size='lg' as='span'>Augustine Li</Heading>
                     </Box>
                     <ButtonGroup>
 
-                        <Button variant='ghost' onClick={() => router.push('/')}>Home</Button>
-                        <Button variant='ghost' onClick={() => router.push('/Blog')}>Blog</Button>
-                        <Button variant='ghost' onClick={() => router.push('/Projects')}>Projects</Button>
+                        <Button variant='ghost' size='lg' onClick={() => router.push('/')}>Home</Button>
+                        <Button variant='ghost' size='lg' onClick={() => router.push('/Blog')}>Blog</Button>
+                        <Button variant='ghost' size='lg' onClick={() => router.push('/Projects')}>Projects</Button>
                     </ButtonGroup>
                     <Spacer />
 
                     {loggedIn ? (
                         <Popover>
                             <PopoverTrigger>
-                                <Button>
+                                <Button size='lg'>
                                     <Wrap>
                                         <WrapItem>
                                             <Avatar size='sm' src={loggedIn.picture} />
@@ -71,7 +71,8 @@ const Navbar = () => {
                     ) : (
                         <Popover>
                             <PopoverTrigger>
-                                <Button colorScheme='green' size='md'>Sign-in</Button>
+                                <Button colorScheme='green' size='lg'
+                                >Sign-in</Button>
                             </PopoverTrigger>
                             <Portal>
                                 <PopoverContent>
