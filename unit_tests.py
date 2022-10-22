@@ -5,18 +5,18 @@ from pathlib import Path
 
 class FileTests(unittest.TestCase):
     """
-    Test if files needed (.env, requirements, Dockerfile, etc exist)
+    Test if files needed (requirements, Dockerfile, etc exist)
     """
 
-    def test_env_exists(self):
-        file_path = path.join(
-            Path(__file__).parent, ".env"
-        )  # combines current directory with .env
-        file_exists = path.isfile(file_path)  # true or false - if .env exists
-        self.assertEqual(file_exists, True)  # check if it is true (exists) or not
-
     def test_requirements_exists(self):
-        file_path = path.join(Path(__file__).parent, "requirements.txt")
+        file_path = path.join(
+            Path(__file__).parent, "requirements.txt"
+        )  # get current working directory, combine with file needed
+        file_exists = path.isfile(file_path)  # true or false
+        self.assertEqual(file_exists, True)  # must be true for file to exist
+
+    def test_docker_exists(self):
+        file_path = path.join(Path(__file__).parent, "Dockerfile")
         file_exists = path.isfile(file_path)
         self.assertEqual(file_exists, True)
 
