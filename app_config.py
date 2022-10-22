@@ -17,8 +17,8 @@ AUTHOR_ID = getenv("AUTHOR_ID")
 
 app = Flask(
     __name__,
-    static_folder="../frontend/out/_next",
-    template_folder="../frontend/out",
+    static_folder="out/_next",
+    template_folder="out",
 )
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgres://"):

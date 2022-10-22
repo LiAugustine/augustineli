@@ -42,4 +42,5 @@ class Like(db.Model, UserMixin):
     article_id = db.Column(db.Integer, ForeignKey("Articles.id"))
 
 
-db.create_all()
+with app.app_context():
+    db.create_all()
